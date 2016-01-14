@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
@@ -38,16 +39,16 @@ namespace IuguClientAPI.Tests
         }
 
         [Then(@"the request should be a POST")]
-        public void ThenTheRequestShouldBeAPOST()
-            => _httpClient.Received().SendAsync(Arg.Is<HttpRequestMessage>(h => h.Method == HttpMethod.Post), Arg.Any<CancellationToken>()).Wait();
+        public Task ThenTheRequestShouldBeAPOST()
+            => _httpClient.Received().SendAsync(Arg.Is<HttpRequestMessage>(h => h.Method == HttpMethod.Post), Arg.Any<CancellationToken>());
 
         [Then(@"should send Json object into the body")]
-        public void ThenShouldSendJsonObjectIntoTheBody()
-            => _httpClient.Received().SendAsync(Arg.Is<HttpRequestMessage>(h => h.Content.Headers.ContentType.MediaType == "application/json"), Arg.Any<CancellationToken>()).Wait();
+        public Task ThenShouldSendJsonObjectIntoTheBody()
+            => _httpClient.Received().SendAsync(Arg.Is<HttpRequestMessage>(h => h.Content.Headers.ContentType.MediaType == "application/json"), Arg.Any<CancellationToken>());
 
         [Then(@"the url should end with ""(.*)""")]
-        public void ThenTheUrlShouldEndWith(string p0)
-            => _httpClient.Received().SendAsync(Arg.Is<HttpRequestMessage>(h => h.RequestUri.ToString() == p0), Arg.Any<CancellationToken>()).Wait();
+        public Task ThenTheUrlShouldEndWith(string p0)
+            => _httpClient.Received().SendAsync(Arg.Is<HttpRequestMessage>(h => h.RequestUri.ToString() == p0), Arg.Any<CancellationToken>());
 
         [Then(@"should return a Client created")]
         public void ThenShouldReturnAClientCreated() => Assert.IsNotNull(_createdClient);

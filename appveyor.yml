@@ -10,7 +10,7 @@ build:
   verbosity: minimal
 after_build:
 - ps: >-
-    nuget pack src\IuguClient\IuguClient.csproj -IncludeReferencedProjects -Properties Configuration=Release -Build
+    nuget pack src\IuguClient\IuguClientAPI.csproj -IncludeReferencedProjects -Properties Configuration=Release -Build
 after_test:
 - cmd: >-
     packages\OpenCover.4.5.3723\OpenCover.Console.exe -register:user -filter:"+[*]IuguClient.* -[*]IuguClient.Tests.*" -target:"packages\NUnit.Runners.2.6.4\tools\nunit-console.exe" -targetargs:"/noshadow /domain:single  src\IuguClient.Tests\bin\release\IuguClient.Tests.dll" -output:coverage.xml
