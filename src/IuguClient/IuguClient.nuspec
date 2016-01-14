@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://raw.githubusercontent.com/fortesinformatica/IuguClient/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/fortesinformatica/IuguClient</projectUrl>
+    <iconUrl>https://d21fvzaqybvyws.cloudfront.net/9CA0F40E971643D1B7C8DE46BBC18396/assets/logo-iugu-ref.1cf353bda1587d235f6fb216193142c5.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>$copyright$</copyright>
+    <tags>iugu payment pagamento</tags>
+  </metadata>
+</package>
