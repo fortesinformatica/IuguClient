@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IuguClient", "src\IuguClient\IuguClient.csproj", "{9D53943B-6721-40B5-B516-F9C6ABE997B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IuguClientAPI", "src\IuguClient\IuguClientAPI.csproj", "{9D53943B-6721-40B5-B516-F9C6ABE997B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IuguClient.Tests", "src\IuguClient.Tests\IuguClient.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IuguClientAPI.Tests", "src\IuguClient.Tests\IuguClientAPI.Tests.csproj", "{8EDF4429-251A-416D-BB68-93F227191BCF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0A6D064A-2FBA-405B-BF79-7737D6810EEE}"
 	ProjectSection(SolutionItems) = preProject
