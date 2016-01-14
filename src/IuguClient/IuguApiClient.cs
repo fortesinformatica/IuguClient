@@ -24,7 +24,7 @@ namespace IuguClientAPI
 
         private async Task<string> PostClient(IuguClient client)
         {
-            var response = await _httpClient.PostAsJsonAsync("/customers2", client);
+            var response = await _httpClient.PostAsJsonAsync("/customers", client);
             var jsonClient = await response.Content.ReadAsStringAsync();
             return jsonClient;
         }
