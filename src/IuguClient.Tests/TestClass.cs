@@ -1,9 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IuguClient.Tests
 {
@@ -13,8 +8,9 @@ namespace IuguClient.Tests
         [Test]
         public void TestMethod()
         {
+            var myMethod = Class1.MyMethod();
             // TODO: Add your test code here
-            Assert.Pass("Your first passing test");
+            Assert.AreEqual("Teste", myMethod);
         }
     }
 }
