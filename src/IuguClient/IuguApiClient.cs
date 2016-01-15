@@ -1,18 +1,19 @@
 ﻿using System;
-using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using IuguClientAPI.Models;
 using Newtonsoft.Json;
+using RestSharp;
 
 namespace IuguClientAPI
 {
     public class IuguApiClient : IIuguApiClient
     {
-        private readonly HttpClient _httpClient;
+        private readonly RestClient _httpClient;
 
-        public IuguApiClient(HttpClient httpClient = default(HttpClient), string baseUrl = "https://api.iugu.com/v1")
+        public IuguApiClient(RestClient httpClient = default(RestClient), string baseUrl = "https://api.iugu.com/v1")
         {
-            _httpClient = httpClient ?? new HttpClient { BaseAddress = new Uri(baseUrl) };
+            _httpClient = httpClient ?? new RestClient { BaseUrl = new Uri(baseUrl) };
         }
 
         public async Task<IuguClient> CreateClient(IuguClient client)
@@ -24,8 +25,11 @@ namespace IuguClientAPI
 
         private async Task<string> PostClient(IuguClient client)
         {
-            var response = await _httpClient.PostAsJsonAsync("/customers", client);
-            var jsonClient = await response.Content.ReadAsStringAsync();
+            var request = GetRestRequest("/customers", Method.POST);
+            request.AddBody(client);
+
+            var response = await _httpClient.ExecuteTaskAsync<string>(request, CancellationToken.None);
+            var jsonClient = await Task.Run(() => JsonConvert.DeserializeObject(response.Content));
             return jsonClient;
         }
 
@@ -33,6 +37,11 @@ namespace IuguClientAPI
         {
             var result = PostClient(client).Result;
             return JsonConvert.DeserializeObject<IuguClient>(result);
+        }
+
+        private RestRequest GetRestRequest(string resource, Method method)
+        {
+            return new RestRequest(resource, method) { RequestFormat = DataFormat.Json };
         }
 
         public void Dispose()
