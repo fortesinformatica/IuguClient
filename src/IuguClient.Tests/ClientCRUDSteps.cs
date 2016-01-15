@@ -1,12 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
+using RestSharp;
 using TechTalk.SpecFlow;
 
 namespace IuguClientAPI.Tests
@@ -14,22 +12,25 @@ namespace IuguClientAPI.Tests
     [Binding]
     public class ClientCRUDSteps
     {
-        private HttpClient _httpClient;
+        private IRestClient _httpClient;
         private IIuguApiClient _sut;
         private Models.IuguClient _client;
         private Models.IuguClient _createdClient;
         private Models.IuguClient _editedClient;
         private Models.IuguClient _clientToBeEdited;
         private string _clientId;
-        private Models.IuguClient deletedClient;
+        private Models.IuguClient _deletedClient;
+        private IRestResponse<Models.IuguClient> _restResponse;
 
         [BeforeScenario]
         public void Setup()
         {
-            _httpClient = Substitute.ForPartsOf<HttpClient>();
-            _httpClient.DefaultRequestHeaders.Add("api_token", "sdad");
+            _httpClient = Substitute.For<IRestClient>();
             _sut = new IuguApiClient(_httpClient);
-
+            _restResponse = Substitute.For<IRestResponse<Models.IuguClient>>();
+            _createdClient = new Models.IuguClient("1", email: "teste@mail.com");
+            _editedClient = new Models.IuguClient("1", email: "teste@mail.com", name: "Fulano");
+            _deletedClient = new Models.IuguClient("1", email: "teste@mail.com", name: "Fulano");
         }
 
         [Given(@"a Client")]
@@ -38,52 +39,6 @@ namespace IuguClientAPI.Tests
             _client = new Models.IuguClient("1", email: "teste@mail.com");
             _clientToBeEdited = new Models.IuguClient("1", "teste@teste.com", name: "Fulano");
         }
-
-        [When(@"I request the client to be added")]
-        public async Task WhenIRequestTheClientToBeAdded()
-        {
-            _httpClient.PostAsJsonAsync("/customers", Arg.Any<HttpContent>()).ReturnsForAnyArgs(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(JsonConvert.SerializeObject(_client)) });
-            _createdClient = _sut.CreateClient(_client).Result;
-        }
-
-        [When(@"I request the client to be added sync")]
-        public void WhenIRequestTheClientToBeAddedSync()
-        {
-            _httpClient.PostAsJsonAsync("/customers", Arg.Any<HttpContent>()).ReturnsForAnyArgs(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(JsonConvert.SerializeObject(_client)) });
-            _createdClient = _sut.CreateClientSync(_client);
-        }
-
-        [When(@"I request the client to be edited")]
-        public void WhenIRequestTheClientToBeEdited()
-        {
-            _httpClient.PutAsJsonAsync("/customers/1", Arg.Any<HttpContent>()).ReturnsForAnyArgs(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(JsonConvert.SerializeObject(_clientToBeEdited)) });
-            _editedClient = _sut.UpdateClient(new Models.IuguClient("1", email: "teste@mail.com")).Result;
-        }
-
-        [When(@"I request the client to be edited sync")]
-        public void WhenIRequestTheClientToBeEditedSync()
-        {
-            _httpClient.PutAsJsonAsync("/customers/1", Arg.Any<HttpContent>()).ReturnsForAnyArgs(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(JsonConvert.SerializeObject(_clientToBeEdited)) });
-            _editedClient = _sut.UpdateClientSync(_client);
-        }
-
-        [Then(@"the request should be a POST")]
-        public Task ThenTheRequestShouldBeAPOST()
-            => AssertThatRequestMatches(h => h.Method == HttpMethod.Post);
-
-        [Then(@"should send Json object into the body")]
-        public Task ThenShouldSendJsonObjectIntoTheBody()
-            => AssertThatRequestMatches(h => h.Content.Headers.ContentType.MediaType == "application/json");
-
-        [Then(@"the url should end with ""(.*)""")]
-        public Task ThenTheUrlShouldEndWith(string uri)
-            => AssertThatRequestMatches(h => h.RequestUri.ToString() == uri);
-
-        [Then(@"should return a Client created")]
-        public void ThenShouldReturnAClientCreated() => Assert.IsNotNull(_createdClient);
-
-        [Then(@"the request should be a PUT")]
-        public void ThenTheRequestShouldBeAPUT() => AssertThatRequestMatches(h => h.Method == HttpMethod.Put);
 
         [Given(@"a id of the client")]
         public void GivenAIdOfTheClient()
@@ -94,26 +49,81 @@ namespace IuguClientAPI.Tests
         [When(@"I request the client to be removed")]
         public void WhenIRequestTheClientToBeRemoved()
         {
-            _httpClient.DeleteAsync("/customers/1").ReturnsForAnyArgs(new HttpResponseMessage(HttpStatusCode.OK) { Content = new StringContent(JsonConvert.SerializeObject(_clientToBeEdited)) });
-            deletedClient = _sut.DeleteClient(_clientId).Result;
+            _restResponse.Data.Returns(_deletedClient);
+            _httpClient.ExecuteTaskAsync<Models.IuguClient>(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(_restResponse);
+            _deletedClient = _sut.DeleteClient(_clientId).Result;
         }
+
+        [When(@"I request the client to be added")]
+        public void WhenIRequestTheClientToBeAdded()
+        {
+            _restResponse.Data.Returns(_createdClient);
+            _httpClient.ExecuteTaskAsync<Models.IuguClient>(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(_restResponse);
+            _createdClient = _sut.CreateClient(_client).Result;
+        }
+
+        [When(@"I request the client to be added sync")]
+        public void WhenIRequestTheClientToBeAddedSync()
+        {
+            _restResponse.Data.Returns(_createdClient);
+            _httpClient.ExecuteTaskAsync<Models.IuguClient>(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(_restResponse);
+            _createdClient = _sut.CreateClientSync(_client);
+        }
+
+        [When(@"I request the client to be edited")]
+        public void WhenIRequestTheClientToBeEdited()
+        {
+            _restResponse.Data.Returns(_editedClient);
+            _httpClient.ExecuteTaskAsync<Models.IuguClient>(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(_restResponse);
+            _editedClient = _sut.UpdateClient(new Models.IuguClient("1", email: "teste@mail.com")).Result;
+        }
+
+        [When(@"I request the client to be edited sync")]
+        public void WhenIRequestTheClientToBeEditedSync()
+        {
+            _restResponse.Data.Returns(_editedClient);
+            _httpClient.ExecuteTaskAsync<Models.IuguClient>(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(_restResponse);
+            _editedClient = _sut.UpdateClientSync(_client);
+        }
+
+        [Then(@"the request should be a POST")]
+        public Task ThenTheRequestShouldBeAPOST()
+            => AssertThatRequestMatches(h => h.Method == Method.POST);
+
+        [Then(@"should send Json object into the body")]
+        public Task ThenShouldSendJsonObjectIntoTheBody()
+            => AssertThatRequestMatches(h => h.RequestFormat == DataFormat.Json);
+
+        [Then(@"the url should end with ""(.*)""")]
+        public void ThenTheUrlShouldEndWith(string uri)
+            => AssertThatRequestMatches(h => h.Resource == uri);
+
+        [Then(@"the url should end with ""(.*)"" with id value equals to (.*)")]
+        public void ThenTheUrlShouldEndWithWithIdValueEqualsTo(string uri, int id)
+            => AssertThatRequestMatches(h => h.Resource == uri && h.Parameters.Any(p => p.Type == ParameterType.UrlSegment && (string)p.Value == id.ToString()));
+
+        [Then(@"should return a Client created")]
+        public void ThenShouldReturnAClientCreated() => Assert.IsNotNull(_createdClient);
+
+        [Then(@"the request should be a PUT")]
+        public void ThenTheRequestShouldBeAPUT() => AssertThatRequestMatches(h => h.Method == Method.PUT);
 
         [Then(@"should return a Client edited")]
         public void ThenShouldReturnAClientEdited() => Assert.AreEqual("Fulano", _editedClient.Name);
 
         [Then(@"the request should be a DELETE")]
         public void ThenTheRequestShouldBeADELETE()
-            => AssertThatRequestMatches(h => h.Method == HttpMethod.Delete);
+            => AssertThatRequestMatches(h => h.Method == Method.DELETE);
 
         [Then(@"should send Api Token into the header")]
         public void ThenShouldSendApiTokenIntoTheHeader()
-            => AssertThatRequestMatches(h => h.Headers.Contains("api_token"));
+            => AssertThatRequestMatches(h => h.Parameters.Any(x => x.Type == ParameterType.HttpHeader && x.Name == "api_token"));
 
         [Then(@"should return a client removed")]
-        public void ThenShouldReturnAClientRemoved() => Assert.IsNotNull(deletedClient);
+        public void ThenShouldReturnAClientRemoved() => Assert.IsNotNull(_deletedClient);
 
 
-        private Task<HttpResponseMessage> AssertThatRequestMatches(Expression<Predicate<HttpRequestMessage>> expression)
-            => _httpClient.Received().SendAsync(Arg.Is(expression), Arg.Any<CancellationToken>());
+        private Task<IRestResponse<Models.IuguClient>> AssertThatRequestMatches(Expression<Predicate<IRestRequest>> expression)
+            => _httpClient.Received().ExecuteTaskAsync<Models.IuguClient>(Arg.Is(expression));
     }
 }

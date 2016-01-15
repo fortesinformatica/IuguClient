@@ -1,67 +1,67 @@
 ﻿using System;
 using System.Configuration;
-using System.Net.Http;
 using System.Threading.Tasks;
 using IuguClientAPI.Models;
-using Newtonsoft.Json;
+using RestSharp;
 
 namespace IuguClientAPI
 {
     public class IuguApiClient : IIuguApiClient
     {
         private const string IUGUAPITOKEN = "IuguApiToken";
-        private readonly HttpClient _httpClient;
-        private string _baseUrl;
+        private readonly IRestClient _httpClient;
+        private string _apiToken;
 
-        public IuguApiClient(HttpClient httpClient = default(HttpClient), string baseUrl = "https://api.iugu.com/v1")
+        public IuguApiClient(IRestClient httpClient = default(RestClient), string baseUrl = "https://api.iugu.com/v1")
         {
-            _baseUrl = baseUrl;
-            var apiToken = ConfigurationManager.AppSettings.Get(IUGUAPITOKEN);
-            if (string.IsNullOrWhiteSpace(apiToken))
+            _apiToken = ConfigurationManager.AppSettings.Get(IUGUAPITOKEN);
+            if (string.IsNullOrWhiteSpace(_apiToken))
                 throw new ConfigurationErrorsException("IuguApiToken não está configurado no App.config ou Web.config");
-           
-            _httpClient = httpClient ?? new HttpClient { BaseAddress = new Uri(baseUrl) };
-            _httpClient.DefaultRequestHeaders.Add("api_token", apiToken);
+
+            _httpClient = httpClient ?? new RestClient(new Uri(baseUrl));
         }
 
         public async Task<IuguClient> CreateClient(IuguClient client)
-            => JsonConvert.DeserializeObject<IuguClient>(await PostClient(client));
+            => await PostClient(client);
 
         public IuguClient CreateClientSync(IuguClient client)
-            => JsonConvert.DeserializeObject<IuguClient>(PostClient(client).Result);
+            => PostClient(client).Result;
 
         public async Task<IuguClient> UpdateClient(IuguClient client)
-            => JsonConvert.DeserializeObject<IuguClient>(await PutClient(client));
+            => await PutClient(client);
 
         public IuguClient UpdateClientSync(IuguClient client)
-            => JsonConvert.DeserializeObject<IuguClient>(PutClient(client).Result);
+            => PutClient(client).Result;
 
         public async Task<IuguClient> DeleteClient(string clientId)
         {
-            var response = await _httpClient.DeleteAsync($"{_baseUrl}/customers/{clientId}");
-            return JsonConvert.DeserializeObject<IuguClient>(await response.Content.ReadAsStringAsync());
+            var request = CreateRequest("/customers/{id}", Method.DELETE).AddUrlSegment("id", clientId);
+
+            return (await _httpClient.ExecuteTaskAsync<IuguClient>(request)).Data;
         }
 
         public IuguClient DeleteClientSync(string clientId)
         {
-            throw new NotImplementedException();
+            var request = CreateRequest("/customers/{id}", Method.DELETE).AddUrlSegment("id", clientId);
+
+            return _httpClient.ExecuteTaskAsync<IuguClient>(request).Result.Data;
         }
 
-        public void Dispose()
+        private async Task<IuguClient> PostClient(IuguClient client)
         {
-            _httpClient.Dispose();
+            var request = CreateRequest("/customers", Method.POST).AddJsonBody(client);
+
+            return (await _httpClient.ExecuteTaskAsync<IuguClient>(request)).Data;
         }
 
-        private async Task<string> PostClient(IuguClient client)
+        private async Task<IuguClient> PutClient(IuguClient client)
         {
-            var response = await _httpClient.PostAsJsonAsync("/customers", client);
-            return await response.Content.ReadAsStringAsync();
+            var request = CreateRequest("/customers/{id}", Method.PUT).AddUrlSegment("id", client.Id).AddJsonBody(client);
+
+            return (await _httpClient.ExecuteTaskAsync<IuguClient>(request)).Data;
         }
 
-        private async Task<string> PutClient(IuguClient client)
-        {
-            var response = await _httpClient.PutAsJsonAsync($"/customers/{client.Id}", client);
-            return await response.Content.ReadAsStringAsync();
-        }
+        private IRestRequest CreateRequest(string resource, Method method)
+            => new RestRequest(resource, method).AddHeader("api_token", _apiToken);
     }
 }

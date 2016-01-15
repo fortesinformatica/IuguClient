@@ -125,7 +125,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 23
  testRunner.And("should send Json object into the body", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24
- testRunner.And("the url should end with \"/customers/1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the url should end with \"/customers/{id}\" with id value equals to 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 25
  testRunner.And("should return a Client edited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -148,7 +148,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 31
  testRunner.And("should send Json object into the body", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 32
- testRunner.And("the url should end with \"/customers/1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the url should end with \"/customers/{id}\" with id value equals to 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 33
  testRunner.And("should return a Client edited", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
@@ -169,7 +169,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 39
  testRunner.Then("the request should be a DELETE", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 40
- testRunner.And("the url should end with \"/customers/1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the url should end with \"/customers/{id}\" with id value equals to 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 41
  testRunner.And("should send Api Token into the header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 42
