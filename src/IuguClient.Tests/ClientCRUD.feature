@@ -41,3 +41,12 @@ Scenario: Client remove async
 	And should send Api Token into the header
 	And should return a client removed
 
+Scenario: Client remove sync
+	Given a id of the client
+	When I request the client to be removed sync
+	Then the request should be a DELETE	
+	And the url should end with "/customers/{id}" with id value equals to 1
+	And should send Api Token into the header
+	And should return a client removed
+
+

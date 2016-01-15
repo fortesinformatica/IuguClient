@@ -54,6 +54,14 @@ namespace IuguClientAPI.Tests
             _deletedClient = _sut.DeleteClient(_clientId).Result;
         }
 
+        [When(@"I request the client to be removed sync")]
+        public void WhenIRequestTheClientToBeRemovedSync()
+        {
+            _restResponse.Data.Returns(_deletedClient);
+            _httpClient.ExecuteTaskAsync<Models.IuguClient>(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(_restResponse);
+            _deletedClient = _sut.DeleteClientSync(_clientId);
+        }
+
         [When(@"I request the client to be added")]
         public void WhenIRequestTheClientToBeAdded()
         {
