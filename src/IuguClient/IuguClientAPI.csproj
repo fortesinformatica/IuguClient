@@ -49,9 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IIuguApiClient.cs" />
+    <Compile Include="Interfaces\IIuguApiClient.cs" />
+    <Compile Include="Interfaces\IIuguApiPaymentMethod.cs" />
+    <Compile Include="IuguApi.cs" />
     <Compile Include="IuguApiClient.cs" />
+    <Compile Include="IuguApiPaymentMethod.cs" />
     <Compile Include="Models\IuguClient.cs" />
+    <Compile Include="Models\IuguPaymentMethod.cs" />
+    <Compile Include="Models\PaymentData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

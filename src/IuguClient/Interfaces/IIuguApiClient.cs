@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using IuguClientAPI.Models;
 
-namespace IuguClientAPI
+namespace IuguClientAPI.Interfaces
 {
     public interface IIuguApiClient
     {

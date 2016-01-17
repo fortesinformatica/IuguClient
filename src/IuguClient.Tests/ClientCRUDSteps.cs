@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using IuguClientAPI.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 using RestSharp;

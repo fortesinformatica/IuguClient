@@ -1,25 +1,16 @@
 ﻿using System;
 using System.Configuration;
 using System.Threading.Tasks;
+using IuguClientAPI.Interfaces;
 using IuguClientAPI.Models;
 using RestSharp;
 
 namespace IuguClientAPI
 {
-    public class IuguApiClient : IIuguApiClient
+    public class IuguApiClient : IuguApi, IIuguApiClient
     {
-        private const string IUGUAPITOKEN = "IuguApiToken";
-        private readonly IRestClient _httpClient;
-        private string _apiToken;
-
         public IuguApiClient(IRestClient httpClient = default(RestClient), string baseUrl = "https://api.iugu.com/v1")
-        {
-            _apiToken = ConfigurationManager.AppSettings.Get(IUGUAPITOKEN);
-            if (string.IsNullOrWhiteSpace(_apiToken))
-                throw new ConfigurationErrorsException("IuguApiToken não está configurado no App.config ou Web.config");
-
-            _httpClient = httpClient ?? new RestClient(new Uri(baseUrl));
-        }
+            :base(httpClient, baseUrl) { }
 
         public async Task<IuguClient> CreateClient(IuguClient client)
             => await PostClient(client);
