@@ -1,69 +1,58 @@
-﻿using IuguClientAPI;
+﻿using System;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 using IuguClientAPI.Interfaces;
 using IuguClientAPI.Models;
 using NSubstitute;
+using NUnit.Framework;
 using RestSharp;
 using TechTalk.SpecFlow;
 
-namespace IuguClient.API.Tests
+namespace IuguClientAPI.Tests
 {
     [Binding]
     public class PaymentMethodCRUDSteps
     {
         private IuguPaymentMethod _paymentMethod;
         private IuguPaymentMethod _createdPaymentMethod;
-        private IRestClient _httpClient;
-        private IIuguApiPaymentMethod _sut;
+        private IIuguApiClient _sut;
         private IRestResponse<IuguPaymentMethod> _restResponse;
         private PaymentData _paymentData;
+        private readonly IRestClient _restClient;
+        private IuguPaymentMethod _iuguPaymentMethod;
 
-        [BeforeScenario]
-        public void Setup()
+        public PaymentMethodCRUDSteps()
         {
-            _httpClient = Substitute.For<IRestClient>();
+            _restClient = CrudStepsBase.RestClient = Substitute.For<IRestClient>();
+            CrudStepsBase.Asserter = MatchRequest;
+            _sut = new IuguApiClient(_restClient);
             _restResponse = Substitute.For<IRestResponse<IuguPaymentMethod>>();
-            _sut = new IuguApiPaymentMethod(_httpClient);
             _paymentData = new PaymentData("4111111111111111", "123", "Joao", "Silva", "12", "2013");
 
             _createdPaymentMethod = new IuguPaymentMethod("9B41FB19CBA44913B1EF990A10382E7E", "Meu Cartão de Crédito", "credit_card", null, _paymentData);
         }
+
+        private Task<IRestResponse<IuguPaymentMethod>> MatchRequest(Expression<Predicate<IRestRequest>> exp)
+            => _restClient.Received().ExecuteTaskAsync<IuguPaymentMethod>(Arg.Is(exp));
 
         [Given(@"a PaymentMethod")]
         public void GivenAPaymentMethod()
         {
             _paymentMethod = new IuguPaymentMethod("Meu Cartão de Crédito", "credit_card", null, _paymentData);
         }
-        
+
         [When(@"I request the PaymentMethod to be added")]
         public void WhenIRequestThePaymentMethodToBeAdded()
         {
             _restResponse.Data.Returns(_createdPaymentMethod);
-            _httpClient.ExecuteTaskAsync<IuguPaymentMethod>(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(_restResponse);
-            _sut.CreatePaymentMethod(_paymentMethod);
-        }
-        
-        [Then(@"the Request should be a POST")]
-        public void ThenTheRequestShouldBeAPOST()
-        {
-            _httpClient.Received().ExecuteTaskAsync<IuguPaymentMethod>(Arg.Is<IRestRequest>(x => x.Method == Method.POST));
+            _restClient.ExecuteTaskAsync<IuguPaymentMethod>(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(_restResponse);
+            _iuguPaymentMethod = _sut.CreatePaymentMethod(_paymentMethod).Result;
         }
 
-        [Then(@"should send Json object into the body")]
-        public void ThenShouldSendJsonObjectIntoTheBody()
-        {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [Then(@"the url should end with ""(.*)""")]
-        public void ThenTheUrlShouldEndWith(string p0)
-        {
-            ScenarioContext.Current.Pending();
-        }
-        
         [Then(@"should return a PaymentMethod created")]
         public void ThenShouldReturnAPaymentMethodCreated()
         {
-            ScenarioContext.Current.Pending();
+            Assert.IsNotNull(_iuguPaymentMethod);
         }
     }
 }

@@ -7,7 +7,7 @@
     <ProjectGuid>{8EDF4429-251A-416D-BB68-93F227191BCF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IuguClient.API.Tests</RootNamespace>
+    <RootNamespace>IuguClientAPI.Tests</RootNamespace>
     <AssemblyName>IuguClient.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -64,6 +64,7 @@
       <DependentUpon>ClientCRUD.feature</DependentUpon>
     </Compile>
     <Compile Include="ClientCRUDSteps.cs" />
+    <Compile Include="CrudStepsBase.cs" />
     <Compile Include="PaymentMethodCRUD.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

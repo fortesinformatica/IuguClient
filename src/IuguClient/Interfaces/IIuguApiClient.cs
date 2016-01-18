@@ -11,5 +11,7 @@ namespace IuguClientAPI.Interfaces
         IuguClient UpdateClientSync(IuguClient client);
         Task<IuguClient> DeleteClient(string clientId);
         IuguClient DeleteClientSync(string clientId);
+
+        Task<IuguPaymentMethod> CreatePaymentMethod(IuguPaymentMethod paymentMethod);
     }
 }

@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace IuguClient.API.Tests
+namespace IuguClientAPI.Tests
 {
     using TechTalk.SpecFlow;
     

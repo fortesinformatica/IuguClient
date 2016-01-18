@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace IuguClient.API.Tests
+namespace IuguClientAPI.Tests
 {
     using TechTalk.SpecFlow;
     
@@ -75,7 +75,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
  testRunner.When("I request the PaymentMethod to be added", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 6
- testRunner.Then("the Request should be a POST", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the request should be a POST", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 7
  testRunner.And("should send Json object into the body", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 8
