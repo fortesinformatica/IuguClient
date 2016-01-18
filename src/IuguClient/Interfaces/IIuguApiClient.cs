@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using IuguClientAPI.Models;
 
-namespace IuguClientAPI
+namespace IuguClientAPI.Interfaces
 {
     public interface IIuguApiClient
     {
@@ -11,5 +11,7 @@ namespace IuguClientAPI
         IuguClient UpdateClientSync(IuguClient client);
         Task<IuguClient> DeleteClient(string clientId);
         IuguClient DeleteClientSync(string clientId);
+
+        Task<IuguPaymentMethod> CreatePaymentMethod(IuguPaymentMethod paymentMethod);
     }
 }

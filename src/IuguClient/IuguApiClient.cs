@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Threading.Tasks;
+using IuguClientAPI.Interfaces;
 using IuguClientAPI.Models;
 using RestSharp;
 
@@ -8,30 +9,27 @@ namespace IuguClientAPI
 {
     public class IuguApiClient : IIuguApiClient
     {
-        private const string IUGUAPITOKEN = "IuguApiToken";
-        private readonly IRestClient _httpClient;
-        private string _apiToken;
+        readonly IRestClient _httpClient;
+        readonly string _apiToken;
+        const string IUGU_API_TOKEN = "IuguApiToken";
 
-        public IuguApiClient(IRestClient httpClient = default(RestClient), string baseUrl = "https://api.iugu.com/v1")
+        public IuguApiClient(IRestClient httpClient = default(IRestClient), string baseUrl = "https://api.iugu.com/v1")
         {
-            _apiToken = ConfigurationManager.AppSettings.Get(IUGUAPITOKEN);
+            _apiToken = ConfigurationManager.AppSettings.Get(IUGU_API_TOKEN);
             if (string.IsNullOrWhiteSpace(_apiToken))
                 throw new ConfigurationErrorsException("IuguApiToken não está configurado no App.config ou Web.config");
 
             _httpClient = httpClient ?? new RestClient(new Uri(baseUrl));
         }
 
-        public async Task<IuguClient> CreateClient(IuguClient client)
-            => await PostClient(client);
+        #region Client Stuff
+        public async Task<IuguClient> CreateClient(IuguClient client) => await Post(client, "/customers");
 
-        public IuguClient CreateClientSync(IuguClient client)
-            => PostClient(client).Result;
+        public IuguClient CreateClientSync(IuguClient client) => Post(client, "/customers").Result;
 
-        public async Task<IuguClient> UpdateClient(IuguClient client)
-            => await PutClient(client);
+        public async Task<IuguClient> UpdateClient(IuguClient client) => await PutClient(client);
 
-        public IuguClient UpdateClientSync(IuguClient client)
-            => PutClient(client).Result;
+        public IuguClient UpdateClientSync(IuguClient client) => PutClient(client).Result;
 
         public async Task<IuguClient> DeleteClient(string clientId)
         {
@@ -47,11 +45,11 @@ namespace IuguClientAPI
             return _httpClient.ExecuteTaskAsync<IuguClient>(request).Result.Data;
         }
 
-        private async Task<IuguClient> PostClient(IuguClient client)
+        private async Task<T> Post<T>(T client, string url)
         {
-            var request = CreateRequest("/customers", Method.POST).AddJsonBody(client);
+            var request = CreateRequest(url, Method.POST).AddJsonBody(client);
 
-            return (await _httpClient.ExecuteTaskAsync<IuguClient>(request)).Data;
+            return (await _httpClient.ExecuteTaskAsync<T>(request)).Data;
         }
 
         private async Task<IuguClient> PutClient(IuguClient client)
@@ -60,8 +58,10 @@ namespace IuguClientAPI
 
             return (await _httpClient.ExecuteTaskAsync<IuguClient>(request)).Data;
         }
+        #endregion
 
-        private IRestRequest CreateRequest(string resource, Method method)
-            => new RestRequest(resource, method).AddHeader("api_token", _apiToken);
+        public async Task<IuguPaymentMethod> CreatePaymentMethod(IuguPaymentMethod paymentMethod) => await Post(paymentMethod, "/payment_methods");
+
+        protected IRestRequest CreateRequest(string resource, Method method) => new RestRequest(resource, method).AddHeader("api_token", _apiToken);
     }
 }
