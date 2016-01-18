@@ -68,12 +68,12 @@
     <Compile Include="CustomerFeature\CustomerCRUDSteps.cs" />
     <Compile Include="Configuration\IuguApiClientTest.cs" />
     <Compile Include="CrudStepsBase.cs" />
-    <Compile Include="PaymentMethodCRUD.feature.cs">
+    <Compile Include="PaymentMethodFeature\PaymentMethodCRUD.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PaymentMethodCRUD.feature</DependentUpon>
     </Compile>
-    <Compile Include="PaymentMethodCRUDSteps.cs" />
+    <Compile Include="PaymentMethodFeature\PaymentMethodCRUDSteps.cs" />
     <Compile Include="PlanFeature\PlanCRUD.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -84,6 +84,7 @@
     <Compile Include="Serialization\BaseTestSetup.cs" />
     <Compile Include="Serialization\CustomerSerializationTest.cs" />
     <Compile Include="Serialization\IuguSubitemSerializationTest.cs" />
+    <Compile Include="Serialization\PaymentMethodSerializationTest.cs" />
     <Compile Include="Serialization\PlanSerializationTest.cs" />
     <Compile Include="Serialization\SubscriptionSerializationTest.cs" />
     <Compile Include="SignatureFeature\SignatureCRUD.feature.cs">
@@ -100,7 +101,7 @@
       <LastGenOutput>ClientCRUD.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
-    <None Include="PaymentMethodCRUD.feature">
+    <None Include="PaymentMethodFeature\PaymentMethodCRUD.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PaymentMethodCRUD.feature.cs</LastGenOutput>
     </None>

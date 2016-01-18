@@ -3,7 +3,7 @@ using IuguClientAPI.Models;
 
 namespace IuguClientAPI.Interfaces
 {
-    public interface IIuguApiClient : IIuguApiSubscriptionClient, IIuguApiPlanClient
+    public interface IIuguApiClient : IIuguApiSubscriptionClient, IIuguApiPlanClient, IIuguApiClientPaymentMethod
     {
         Task<IuguCustomer> CreateClient(IuguCustomer customer);
         IuguCustomer CreateClientSync(IuguCustomer customer);
@@ -11,7 +11,5 @@ namespace IuguClientAPI.Interfaces
         IuguCustomer UpdateClientSync(IuguCustomer customer);
         Task<IuguCustomer> DeleteClient(string clientId);
         IuguCustomer DeleteClientSync(string clientId);
-
-        Task<IuguPaymentMethod> CreatePaymentMethod(IuguPaymentMethod paymentMethod);
     }
 }

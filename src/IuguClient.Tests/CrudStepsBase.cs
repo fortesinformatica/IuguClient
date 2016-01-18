@@ -38,6 +38,10 @@ namespace IuguClientAPI.Tests
         public void ThenTheUrlShouldEndWith(string uri)
             => AssertRequestMatches(h => h.Resource == uri);
 
+        [Then(@"the url should end with ""(.*)"" with clientId value equal to (.*)")]
+        public void ThenTheUrlShouldEndWithWithClientIdValueEqualTo(string uri, string clientId) 
+            => AssertRequestMatches(h => h.Resource == uri && h.Parameters.Any(p => p.Type == ParameterType.UrlSegment && (string)p.Value == clientId));
+
         [Then(@"should send Json object into the body")]
         public Task ThenShouldSendJsonObjectIntoTheBody()
             => AssertRequestMatches(h => h.RequestFormat == DataFormat.Json);
@@ -45,6 +49,12 @@ namespace IuguClientAPI.Tests
         [Then(@"the url should end with ""(.*)"" with id value equals to (.*)")]
         public void ThenTheUrlShouldEndWithWithIdValueEqualsTo(string uri, string id)
             => AssertRequestMatches(h => h.Resource == uri && h.Parameters.Any(p => p.Type == ParameterType.UrlSegment && (string)p.Value == id));
+
+        [Then(@"the url should end with ""(.*)"" with clientId value equals to (.*) and id value equals to (.*)")]
+        public void ThenTheUrlShouldEndWithWithClientIdValueEqualsToAndIdValueEqualsTo(string uri, string clientId, string id)
+            => AssertRequestMatches(h => h.Resource == uri
+            && h.Parameters.Any(p => p.Type == ParameterType.UrlSegment && p.Value.ToString() == id)
+            && h.Parameters.Any(p => p.Type == ParameterType.UrlSegment && p.Value.ToString() == clientId));
 
         [Then(@"the request should be a PUT")]
         public void ThenTheRequestShouldBeAPUT() => AssertRequestMatches(h => h.Method == Method.PUT);

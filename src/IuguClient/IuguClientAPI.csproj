@@ -51,9 +51,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\IuguApiClientCustomer.cs" />
+    <Compile Include="Implementation\IuguApiClientPaymentMethod.cs" />
     <Compile Include="Implementation\IuguApiClientPlan.cs" />
     <Compile Include="Implementation\IuguApiClientSubscription.cs" />
     <Compile Include="Interfaces\IIuguApiClient.cs" />
+    <Compile Include="Interfaces\IIuguApiClientPaymentMethod.cs" />
     <Compile Include="Interfaces\IIuguApiPlanClient.cs" />
     <Compile Include="Interfaces\IIuguApiSubscriptionClient.cs" />
     <Compile Include="Implementation\IuguApiClient.cs" />
