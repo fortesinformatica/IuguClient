@@ -8,7 +8,7 @@ namespace IuguClientAPI.Tests.Serealization
     public class ClientSerializationTest
     {
         [Test]
-        public void IuguSubitemSerialization()
+        public void SerializeClient()
         {
             var iuguClient = new IuguClient("email@email.com", "Cliente", "03318802379", null);
             var json = JsonConvert.SerializeObject(iuguClient);
