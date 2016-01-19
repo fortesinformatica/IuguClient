@@ -45,13 +45,6 @@ namespace IuguClientAPI
             return _httpClient.ExecuteTaskAsync<IuguClient>(request).Result.Data;
         }
 
-        private async Task<T> Post<T>(T client, string url)
-        {
-            var request = CreateRequest(url, Method.POST).AddJsonBody(client);
-
-            return (await _httpClient.ExecuteTaskAsync<T>(request)).Data;
-        }
-
         private async Task<IuguClient> PutClient(IuguClient client)
         {
             var request = CreateRequest("/customers/{id}", Method.PUT).AddUrlSegment("id", client.Id).AddJsonBody(client);
@@ -61,7 +54,48 @@ namespace IuguClientAPI
         #endregion
 
         public async Task<IuguPaymentMethod> CreatePaymentMethod(IuguPaymentMethod paymentMethod) => await Post(paymentMethod, "/payment_methods");
+        #region Subscription Stuff
+        public async Task<IuguSubscription> CreateSubscription(IuguSubscription subscription) => await Post(subscription, "/subscriptions");
 
-        protected IRestRequest CreateRequest(string resource, Method method) => new RestRequest(resource, method).AddHeader("api_token", _apiToken);
+        public IuguSubscription CreateSubscriptionSync(IuguSubscription subscription) => Post(subscription, "/subscriptions").Result;
+
+        public async Task<IuguSubscription> UpdateSubscription(IuguSubscription subscription) => await Put(subscription, subscription.Id, "/subscriptions/{id}");
+
+        public IuguSubscription UpdateSubscriptionSync(IuguSubscription subscription) => Put(subscription, subscription.Id, "/subscriptions/{id}").Result;
+
+        public async Task<IuguSubscription> DeleteSubscription(string subscriptionId) => await Delete<IuguSubscription>(subscriptionId, "/subscriptions/{id}");
+
+        public IuguSubscription DeleteSubscriptionSync(string subscriptionId) => Delete<IuguSubscription>(subscriptionId, "/subscriptions/{id}").Result;
+
+        public async Task<IuguSubscription> GetSubscription(string subscriptionId) => await Get<IuguSubscription>(subscriptionId, "/subscriptions/{id}");
+
+        public IuguSubscription GetSubscriptionSync(string subscriptionId) => Get<IuguSubscription>(subscriptionId, "/subscriptions/{id}").Result;
+
+        public async Task<IuguSubscription> SuspendSubscription(string subscriptionId) => await Post<IuguSubscription>(subscriptionId, "/subscriptions/{id}/suspend");
+
+        public IuguSubscription SuspendSubscriptionSync(string subscriptionId) => Post<IuguSubscription>(subscriptionId, "/subscriptions/{id}/suspend").Result;
+
+        public async Task<IuguSubscription> ActivateSubscription(string subscriptionId) => await Post<IuguSubscription>(subscriptionId, "/subscriptions/{id}/activate");
+
+        public IuguSubscription ActivateSubscriptionSync(string subscriptionId) => Post<IuguSubscription>(subscriptionId, "/subscriptions/{id}/activate").Result;
+
+        #endregion
+
+        private IRestRequest CreateRequest(string resource, Method method) => new RestRequest(resource, method).AddHeader("api_token", _apiToken);
+
+        private async Task<T> Get<T>(string id, string url)
+            => (await _httpClient.ExecuteTaskAsync<T>(CreateRequest(url, Method.GET).AddUrlSegment("id", id))).Data;
+
+        private async Task<T> Post<T>(T client, string url)
+            => (await _httpClient.ExecuteTaskAsync<T>(CreateRequest(url, Method.POST).AddJsonBody(client))).Data;
+
+        private async Task<T> Post<T>(string id, string url)
+            => (await _httpClient.ExecuteTaskAsync<T>(CreateRequest(url, Method.POST).AddUrlSegment("id", id))).Data;
+
+        private async Task<T> Put<T>(T client, string id, string url)
+            => (await _httpClient.ExecuteTaskAsync<T>(CreateRequest(url, Method.PUT).AddUrlSegment("id", id).AddJsonBody(client))).Data;
+
+        private async Task<T> Delete<T>(string id, string url)
+            => (await _httpClient.ExecuteTaskAsync<T>(CreateRequest(url, Method.DELETE).AddUrlSegment("id", id))).Data;
     }
 }
