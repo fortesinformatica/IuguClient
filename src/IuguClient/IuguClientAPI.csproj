@@ -52,8 +52,14 @@
     <Compile Include="Interfaces\IIuguApiClient.cs" />
     <Compile Include="IuguApiClient.cs" />
     <Compile Include="Models\IuguClient.cs" />
+    <Compile Include="Models\IuguFeature.cs" />
+    <Compile Include="Models\IuguFeatures.cs" />
+    <Compile Include="Models\IuguLog.cs" />
     <Compile Include="Models\IuguPaymentMethod.cs" />
+    <Compile Include="Models\IuguSubitem.cs" />
+    <Compile Include="Models\IuguSubscription.cs" />
     <Compile Include="Models\PaymentData.cs" />
+    <Compile Include="Models\PaymentOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

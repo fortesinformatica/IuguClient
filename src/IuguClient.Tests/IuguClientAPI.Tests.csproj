@@ -72,6 +72,14 @@
     </Compile>
     <Compile Include="PaymentMethodCRUDSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serealization\IuguSubitemSerializationTest.cs" />
+    <Compile Include="Serealization\SubscriptionSerializationTest.cs" />
+    <Compile Include="SignatureFeature\SignatureCRUD.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SignatureCRUD.feature</DependentUpon>
+    </Compile>
+    <Compile Include="SignatureFeature\SubscriptionCRUDSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -83,6 +91,10 @@
     <None Include="PaymentMethodCRUD.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PaymentMethodCRUD.feature.cs</LastGenOutput>
+    </None>
+    <None Include="SignatureFeature\SignatureCRUD.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SignatureCRUD.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>

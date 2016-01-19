@@ -30,6 +30,10 @@ namespace IuguClientAPI.Tests
         public Task ThenTheRequestShouldBeAPOST()
            => AssertRequestMatches(h => h.Method == Method.POST);
 
+        [Then(@"the request should be a GET")]
+        public void ThenTheRequestShouldBeAGET()
+           => AssertRequestMatches(h => h.Method == Method.GET);
+
         [Then(@"the url should end with ""(.*)""")]
         public void ThenTheUrlShouldEndWith(string uri)
             => AssertRequestMatches(h => h.Resource == uri);
