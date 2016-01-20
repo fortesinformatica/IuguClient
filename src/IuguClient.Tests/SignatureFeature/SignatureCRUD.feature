@@ -6,6 +6,7 @@ Scenario: Subscription creation async
 	Then the request should be a POST
 	And should send Json object into the body
 	And the url should end with "/subscriptions"
+	And should send Api Token into the header
 	And should return a Subscription created
 
 Scenario: Subscription creation sync
@@ -14,6 +15,7 @@ Scenario: Subscription creation sync
 	Then the request should be a POST 
 	And should send Json object into the body
 	And the url should end with "/subscriptions"
+	And should send Api Token into the header
 	And should return a Subscription created
 
 Scenario: Subscription edit async
@@ -22,6 +24,7 @@ Scenario: Subscription edit async
 	Then the request should be a PUT 
 	And should send Json object into the body
 	And the url should end with "/subscriptions/{id}" with id value equals to 1
+	And should send Api Token into the header
 	And should return a Subscription edited
 	
 Scenario: Subscription edit sync
@@ -30,6 +33,7 @@ Scenario: Subscription edit sync
 	Then the request should be a PUT 
 	And should send Json object into the body
 	And the url should end with "/subscriptions/{id}" with id value equals to 1
+	And should send Api Token into the header
 	And should return a Subscription edited
 
 Scenario: Subscription remove async

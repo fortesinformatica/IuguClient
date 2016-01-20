@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseStep.cs" />
     <Compile Include="ClientCRUD.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -73,10 +74,17 @@
       <DependentUpon>PaymentMethodCRUD.feature</DependentUpon>
     </Compile>
     <Compile Include="PaymentMethodCRUDSteps.cs" />
+    <Compile Include="PlanFeature\PlanCRUD.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PlanCRUD.feature</DependentUpon>
+    </Compile>
+    <Compile Include="PlanFeature\PlanCRUDSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serealization\BaseTestSetup.cs" />
     <Compile Include="Serealization\ClientSerializationTest.cs" />
     <Compile Include="Serealization\IuguSubitemSerializationTest.cs" />
+    <Compile Include="Serealization\PlanSerializationTest.cs" />
     <Compile Include="Serealization\SubscriptionSerializationTest.cs" />
     <Compile Include="SignatureFeature\SignatureCRUD.feature.cs">
       <AutoGen>True</AutoGen>
@@ -95,6 +103,10 @@
     <None Include="PaymentMethodCRUD.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>PaymentMethodCRUD.feature.cs</LastGenOutput>
+    </None>
+    <None Include="PlanFeature\PlanCRUD.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PlanCRUD.feature.cs</LastGenOutput>
     </None>
     <None Include="SignatureFeature\SignatureCRUD.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

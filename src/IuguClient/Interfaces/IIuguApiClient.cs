@@ -3,7 +3,7 @@ using IuguClientAPI.Models;
 
 namespace IuguClientAPI.Interfaces
 {
-    public interface IIuguApiClient : IIuguApiSubscriptionClient
+    public interface IIuguApiClient : IIuguApiSubscriptionClient, IIuguApiPlanClient
     {
         Task<IuguClient> CreateClient(IuguClient client);
         IuguClient CreateClientSync(IuguClient client);

@@ -41,6 +41,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,15 +51,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\IuguApiClientCustomer.cs" />
+    <Compile Include="Implementation\IuguApiClientPlan.cs" />
     <Compile Include="Implementation\IuguApiClientSubscription.cs" />
     <Compile Include="Interfaces\IIuguApiClient.cs" />
+    <Compile Include="Interfaces\IIuguApiPlanClient.cs" />
     <Compile Include="Interfaces\IIuguApiSubscriptionClient.cs" />
     <Compile Include="Implementation\IuguApiClient.cs" />
     <Compile Include="Models\IuguClient.cs" />
+    <Compile Include="Models\IuguCurrencyType.cs" />
     <Compile Include="Models\IuguFeature.cs" />
     <Compile Include="Models\IuguFeatures.cs" />
+    <Compile Include="Models\IuguIntervalType.cs" />
     <Compile Include="Models\IuguLog.cs" />
     <Compile Include="Models\IuguPaymentMethod.cs" />
+    <Compile Include="Models\IuguPlan.cs" />
+    <Compile Include="Models\IuguPrice.cs" />
     <Compile Include="Models\IuguSubitem.cs" />
     <Compile Include="Models\IuguSubscription.cs" />
     <Compile Include="Models\PaymentData.cs" />
