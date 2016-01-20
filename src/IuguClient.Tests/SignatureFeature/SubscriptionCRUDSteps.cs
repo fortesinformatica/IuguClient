@@ -14,7 +14,7 @@ namespace IuguClientAPI.Tests
     public class SubscriptionCRUDSteps
     {
         private readonly IRestClient _restClient;
-        private readonly IIuguApiClient _sut;
+        private readonly IIuguApiSubscriptionClient _sut;
         private readonly IRestResponse<IuguSubscription> _restResponse;
         private IuguSubscription _subscriptionAdded;
         private IuguSubscription _subscriptionUpdated;

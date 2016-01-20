@@ -49,8 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\IuguApiClientCustomer.cs" />
+    <Compile Include="Implementation\IuguApiClientSubscription.cs" />
     <Compile Include="Interfaces\IIuguApiClient.cs" />
-    <Compile Include="IuguApiClient.cs" />
+    <Compile Include="Interfaces\IIuguApiSubscriptionClient.cs" />
+    <Compile Include="Implementation\IuguApiClient.cs" />
     <Compile Include="Models\IuguClient.cs" />
     <Compile Include="Models\IuguFeature.cs" />
     <Compile Include="Models\IuguFeatures.cs" />
@@ -67,6 +70,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
