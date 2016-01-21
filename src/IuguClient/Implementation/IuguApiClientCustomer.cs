@@ -7,33 +7,33 @@ namespace IuguClientAPI
     public partial class IuguApiClient
     {
         #region Client Stuff
-        public async Task<IuguClient> CreateClient(IuguClient client) => await Post(client, "/customers");
+        public async Task<IuguCustomer> CreateClient(IuguCustomer customer) => await Post(customer, "/customers");
 
-        public IuguClient CreateClientSync(IuguClient client) => Post(client, "/customers").Result;
+        public IuguCustomer CreateClientSync(IuguCustomer customer) => Post(customer, "/customers").Result;
 
-        public async Task<IuguClient> UpdateClient(IuguClient client) => await PutClient(client);
+        public async Task<IuguCustomer> UpdateClient(IuguCustomer customer) => await PutClient(customer);
 
-        public IuguClient UpdateClientSync(IuguClient client) => PutClient(client).Result;
+        public IuguCustomer UpdateClientSync(IuguCustomer customer) => PutClient(customer).Result;
 
-        public async Task<IuguClient> DeleteClient(string clientId)
+        public async Task<IuguCustomer> DeleteClient(string clientId)
         {
             var request = CreateRequest("/customers/{id}", Method.DELETE).AddUrlSegment("id", clientId);
 
-            return (await _httpClient.ExecuteTaskAsync<IuguClient>(request)).Data;
+            return (await _httpClient.ExecuteTaskAsync<IuguCustomer>(request)).Data;
         }
 
-        public IuguClient DeleteClientSync(string clientId)
+        public IuguCustomer DeleteClientSync(string clientId)
         {
             var request = CreateRequest("/customers/{id}", Method.DELETE).AddUrlSegment("id", clientId);
 
-            return _httpClient.ExecuteTaskAsync<IuguClient>(request).Result.Data;
+            return _httpClient.ExecuteTaskAsync<IuguCustomer>(request).Result.Data;
         }
 
-        private async Task<IuguClient> PutClient(IuguClient client)
+        private async Task<IuguCustomer> PutClient(IuguCustomer customer)
         {
-            var request = CreateRequest("/customers/{id}", Method.PUT).AddUrlSegment("id", client.Id).AddJsonBody(client);
+            var request = CreateRequest("/customers/{id}", Method.PUT).AddUrlSegment("id", customer.Id).AddJsonBody(customer);
 
-            return (await _httpClient.ExecuteTaskAsync<IuguClient>(request)).Data;
+            return (await _httpClient.ExecuteTaskAsync<IuguCustomer>(request)).Data;
         }
         #endregion
 
