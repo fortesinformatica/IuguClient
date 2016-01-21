@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace IuguClientAPI.Tests.Serealization
+namespace IuguClientAPI.Tests.Serialization
 {
     [TestFixture]
     public class PlanSerializationTest

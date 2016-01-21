@@ -5,12 +5,12 @@ namespace IuguClientAPI.Interfaces
 {
     public interface IIuguApiClient : IIuguApiSubscriptionClient, IIuguApiPlanClient
     {
-        Task<IuguClient> CreateClient(IuguClient client);
-        IuguClient CreateClientSync(IuguClient client);
-        Task<IuguClient> UpdateClient(IuguClient client);
-        IuguClient UpdateClientSync(IuguClient client);
-        Task<IuguClient> DeleteClient(string clientId);
-        IuguClient DeleteClientSync(string clientId);
+        Task<IuguCustomer> CreateClient(IuguCustomer customer);
+        IuguCustomer CreateClientSync(IuguCustomer customer);
+        Task<IuguCustomer> UpdateClient(IuguCustomer customer);
+        IuguCustomer UpdateClientSync(IuguCustomer customer);
+        Task<IuguCustomer> DeleteClient(string clientId);
+        IuguCustomer DeleteClientSync(string clientId);
 
         Task<IuguPaymentMethod> CreatePaymentMethod(IuguPaymentMethod paymentMethod);
     }

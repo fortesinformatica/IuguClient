@@ -57,7 +57,7 @@
     <Compile Include="Interfaces\IIuguApiPlanClient.cs" />
     <Compile Include="Interfaces\IIuguApiSubscriptionClient.cs" />
     <Compile Include="Implementation\IuguApiClient.cs" />
-    <Compile Include="Models\IuguClient.cs" />
+    <Compile Include="Models\IuguCustomer.cs" />
     <Compile Include="Models\IuguCurrencyType.cs" />
     <Compile Include="Models\IuguFeature.cs" />
     <Compile Include="Models\IuguFeatures.cs" />

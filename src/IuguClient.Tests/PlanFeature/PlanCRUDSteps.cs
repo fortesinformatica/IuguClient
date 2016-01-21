@@ -1,12 +1,7 @@
-﻿using System;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using IuguClientAPI.Interfaces;
+﻿using IuguClientAPI.Interfaces;
 using IuguClientAPI.Models;
-using IuguClientAPI.Tests.Serealization;
-using NSubstitute;
+using IuguClientAPI.Tests.Serialization;
 using NUnit.Framework;
-using RestSharp;
 using TechTalk.SpecFlow;
 
 namespace IuguClientAPI.Tests.PlanFeature
@@ -27,7 +22,6 @@ namespace IuguClientAPI.Tests.PlanFeature
 
         public PlanCRUDSteps()
         {
-            CrudStepsBase.Asserter = MatchRequest;
             _sut = new IuguApiClient(_restClient);
 
             _plan = new IuguPlan("Core", "core_basico", 1, IuguIntervalType.Months, IuguCurrencyType.BRL, 7500);
@@ -35,9 +29,6 @@ namespace IuguClientAPI.Tests.PlanFeature
             _planToUpdate = PlanSerializationTest.IuguPlan;
             _planToDelete = PlanSerializationTest.IuguPlan;
         }
-
-        private Task<IRestResponse<IuguPlan>> MatchRequest(Expression<Predicate<IRestRequest>> exp)
-            => _restClient.Received().ExecuteTaskAsync<IuguPlan>(Arg.Is(exp));
 
         [Given(@"a Plan")]
         public void GivenAPlan() => _plan = new IuguPlan("Core", "core_basico", 1, IuguIntervalType.Months, IuguCurrencyType.BRL, 7500);
