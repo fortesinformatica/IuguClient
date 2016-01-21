@@ -43,8 +43,8 @@ namespace IuguClientAPI.Tests
             => AssertRequestMatches(h => h.RequestFormat == DataFormat.Json);
 
         [Then(@"the url should end with ""(.*)"" with id value equals to (.*)")]
-        public void ThenTheUrlShouldEndWithWithIdValueEqualsTo(string uri, int id)
-            => AssertRequestMatches(h => h.Resource == uri && h.Parameters.Any(p => p.Type == ParameterType.UrlSegment && (string)p.Value == id.ToString()));
+        public void ThenTheUrlShouldEndWithWithIdValueEqualsTo(string uri, string id)
+            => AssertRequestMatches(h => h.Resource == uri && h.Parameters.Any(p => p.Type == ParameterType.UrlSegment && (string)p.Value == id));
 
         [Then(@"the request should be a PUT")]
         public void ThenTheRequestShouldBeAPUT() => AssertRequestMatches(h => h.Method == Method.PUT);
