@@ -51,10 +51,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\IuguApiClientCustomer.cs" />
+    <Compile Include="Implementation\IuguApiClientInvoice.cs" />
     <Compile Include="Implementation\IuguApiClientPaymentMethod.cs" />
     <Compile Include="Implementation\IuguApiClientPlan.cs" />
     <Compile Include="Implementation\IuguApiClientSubscription.cs" />
     <Compile Include="Interfaces\IIuguApiClient.cs" />
+    <Compile Include="Interfaces\IIuguApiClientInvoice.cs" />
     <Compile Include="Interfaces\IIuguApiClientPaymentMethod.cs" />
     <Compile Include="Interfaces\IIuguApiPlanClient.cs" />
     <Compile Include="Interfaces\IIuguApiSubscriptionClient.cs" />
@@ -64,11 +66,14 @@
     <Compile Include="Models\IuguFeature.cs" />
     <Compile Include="Models\IuguFeatures.cs" />
     <Compile Include="Models\IuguIntervalType.cs" />
+    <Compile Include="Models\IuguInvoice.cs" />
+    <Compile Include="Models\IuguInvoiceItem.cs" />
     <Compile Include="Models\IuguLog.cs" />
     <Compile Include="Models\IuguPaymentMethod.cs" />
     <Compile Include="Models\IuguPlan.cs" />
     <Compile Include="Models\IuguPrice.cs" />
     <Compile Include="Models\IuguSubitem.cs" />
+    <Compile Include="Models\IuguSubItemBase.cs" />
     <Compile Include="Models\IuguSubscription.cs" />
     <Compile Include="Models\PaymentData.cs" />
     <Compile Include="Models\PaymentOptions.cs" />
