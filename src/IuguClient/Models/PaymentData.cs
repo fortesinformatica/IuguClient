@@ -1,8 +1,16 @@
-﻿namespace IuguClientAPI.Models
+﻿using Newtonsoft.Json;
+
+namespace IuguClientAPI.Models
 {
     public class PaymentData
     {
-        public PaymentData(string creditCardNumber, string creditCardVerificationValue, string firstName, string lastName, string month, string year)
+        [JsonConstructor]
+        public PaymentData(string creditCardNumber, 
+            string creditCardVerificationValue, 
+            string firstName, 
+            string lastName, 
+            string month, 
+            string year)
         {
             CreditCardNumber = creditCardNumber;
             CreditCardVerificationValue = creditCardVerificationValue;
@@ -12,11 +20,17 @@
             Year = year;
         }
 
+        [JsonProperty("number")]
         public string CreditCardNumber { get; }
+        [JsonProperty("verification_value")]
         public string CreditCardVerificationValue { get; }
+        [JsonProperty("first_name")]
         public string FirstName { get; }
+        [JsonProperty("last_name")]
         public string LastName { get; }
+        [JsonProperty("month")]
         public string Month { get; }
+        [JsonProperty("year_value")]
         public string Year { get; }
     }
 }
