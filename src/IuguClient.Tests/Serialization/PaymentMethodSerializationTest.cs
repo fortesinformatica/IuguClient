@@ -13,7 +13,7 @@ namespace IuguClientAPI.Tests.Serialization
         public void SerializeClient()
         {
             var paymentData = new PaymentData("4111111111111111", "123", "Joao", "Silva", "12", "2013");
-            var iuguClient = new IuguPaymentMethod("2", "Meu Cartão de Crédito", paymentData, PaymentOptions.credit_card, null);
+            var iuguClient = new IuguPaymentMethod("2", "Meu Cartão de Crédito", paymentData, PaymentOptions.CreditCard, null);
             var json = JsonConvert.SerializeObject(iuguClient);
             Assert.IsNotEmpty(json);
         }

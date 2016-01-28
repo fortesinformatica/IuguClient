@@ -5,11 +5,11 @@ namespace IuguClientAPI.Models
     public class PaymentData
     {
         [JsonConstructor]
-        public PaymentData(string creditCardNumber, 
-            string creditCardVerificationValue, 
-            string firstName, 
-            string lastName, 
-            string month, 
+        public PaymentData(string creditCardNumber,
+            string creditCardVerificationValue,
+            string firstName,
+            string lastName,
+            string month,
             string year)
         {
             CreditCardNumber = creditCardNumber;

@@ -58,6 +58,7 @@
     <Compile Include="Interfaces\IIuguApiClient.cs" />
     <Compile Include="Interfaces\IIuguApiClientInvoice.cs" />
     <Compile Include="Interfaces\IIuguApiClientPaymentMethod.cs" />
+    <Compile Include="Interfaces\IIuguApiCustomerClient.cs" />
     <Compile Include="Interfaces\IIuguApiPlanClient.cs" />
     <Compile Include="Interfaces\IIuguApiSubscriptionClient.cs" />
     <Compile Include="Implementation\IuguApiClient.cs" />

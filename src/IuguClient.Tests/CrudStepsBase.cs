@@ -39,7 +39,7 @@ namespace IuguClientAPI.Tests
             => AssertRequestMatches(h => h.Resource == uri);
 
         [Then(@"the url should end with ""(.*)"" with clientId value equal to (.*)")]
-        public void ThenTheUrlShouldEndWithWithClientIdValueEqualTo(string uri, string clientId) 
+        public void ThenTheUrlShouldEndWithWithClientIdValueEqualTo(string uri, string clientId)
             => AssertRequestMatches(h => h.Resource == uri && h.Parameters.Any(p => p.Type == ParameterType.UrlSegment && (string)p.Value == clientId));
 
         [Then(@"should send Json object into the body")]

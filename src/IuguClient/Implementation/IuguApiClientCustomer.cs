@@ -36,6 +36,5 @@ namespace IuguClientAPI
             return (await _httpClient.ExecuteTaskAsync<IuguCustomer>(request)).Data;
         }
         #endregion
-
     }
 }

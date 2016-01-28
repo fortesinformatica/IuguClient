@@ -31,6 +31,5 @@ namespace IuguClientAPI
         public IuguSubscription ActivateSubscriptionSync(string subscriptionId) => Post<IuguSubscription>(subscriptionId, "/subscriptions/{id}/activate").Result;
 
         #endregion
-
     }
 }

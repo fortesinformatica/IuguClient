@@ -13,7 +13,7 @@ namespace IuguClientAPI
             => await Post(paymentMethod, new Dictionary<string, string> { { "clientId", paymentMethod.CustomerId } }, PAYMENTMETHODURLSUFFIX);
 
         public IuguPaymentMethod CreatePaymentMethodSync(IuguPaymentMethod paymentMethod)
-            => Post(paymentMethod, new Dictionary<string, string> { {"clientId", paymentMethod.CustomerId} }, PAYMENTMETHODURLSUFFIX).Result;
+            => Post(paymentMethod, new Dictionary<string, string> { { "clientId", paymentMethod.CustomerId } }, PAYMENTMETHODURLSUFFIX).Result;
 
         public async Task<IuguPaymentMethod> UpdatePaymentMethod(IuguPaymentMethod paymentMethod, string clientId)
             => await Put(paymentMethod, new Dictionary<string, string> { { "id", paymentMethod.Id }, { "clienteId", clientId } }, PAYMENTMETHODURLSUFFIXWITHCLIENTID);

@@ -24,7 +24,7 @@ namespace IuguClientAPI.Tests.InvoiceFeature
         public InvoiceCRUDSteps()
         {
             _sut = new IuguApiClient(_restClient);
-            _createdInvoice = _editedInvoice = _removedInvoice = _duplicatedInvoice = _canceledInvoice = _refundedInvoice = _retrievedInvoice = new IuguInvoice("0958D2AAD34049AB889583E26DFA0BF1", "teste@teste.com", DateTime.Now, new List<IuguInvoiceItem> { new IuguInvoiceItem("Item um", 1, 1000) }, null, null, null, null, null, null, null, null, null, null, PaymentOptions.credit_card, null, null, null);
+            _createdInvoice = _editedInvoice = _removedInvoice = _duplicatedInvoice = _canceledInvoice = _refundedInvoice = _retrievedInvoice = new IuguInvoice("0958D2AAD34049AB889583E26DFA0BF1", "teste@teste.com", DateTime.Now, new List<IuguInvoiceItem> { new IuguInvoiceItem("Item um", 1, 1000) }, null, null, null, null, null, null, null, null, null, null, PaymentOptions.CreditCard, null, null, null);
         }
 
         [Given(@"a Invoice")]
@@ -71,7 +71,7 @@ namespace IuguClientAPI.Tests.InvoiceFeature
         public void WhenIRequestTheInvoiceToBeRefundedSync() => _refundedInvoice = CallMethodAndMockResponse(() => _sut.RefundInvoiceSync(_createdInvoice.Id), _refundedInvoice);
 
         [When(@"I request the invoice to be retrieved")]
-        public void WhenIRequestTheInvoiceToBeRetrieved() => _retrievedInvoice = CallMethodAndMockResponse(() => _sut.GetInvoiceById(_createdInvoice.Id).Result,_retrievedInvoice);
+        public void WhenIRequestTheInvoiceToBeRetrieved() => _retrievedInvoice = CallMethodAndMockResponse(() => _sut.GetInvoiceById(_createdInvoice.Id).Result, _retrievedInvoice);
 
         [When(@"I request the invoice to be retrieved sync")]
         public void WhenIRequestTheInvoiceToBeRetrievedSync() => _retrievedInvoice = CallMethodAndMockResponse(() => _sut.GetInvoiceByIdSync(_createdInvoice.Id), _retrievedInvoice);

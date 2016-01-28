@@ -15,7 +15,7 @@ namespace IuguClientAPI.Tests.Serialization
         public void SerializeInvoice()
         {
             var iuguInvoice = new IuguInvoice("0958D2AAD34049AB889583E26DFA0BF1", "teste@teste.com", DateTime.Now, new List<IuguInvoiceItem>(), "http://app.coremanagerdev.com.br/#/expirado",
-                "http://app.coremanagerdev.com.br/#/webhook/fatura", null, null, null, null, null, "A118D2AAD34049AB889583E26DFA2FR6", null, "111ASDF222DFSFS656598DFDFS54", PaymentOptions.credit_card,
+                "http://app.coremanagerdev.com.br/#/webhook/fatura", null, null, null, null, null, "A118D2AAD34049AB889583E26DFA2FR6", null, "111ASDF222DFSFS656598DFDFS54", PaymentOptions.CreditCard,
                 null, null, null);
             var json = JsonConvert.SerializeObject(iuguInvoice);
             Assert.IsNotEmpty(json);

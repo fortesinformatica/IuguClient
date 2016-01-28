@@ -27,6 +27,5 @@ namespace IuguClientAPI.Tests
 
         private Task<IRestResponse<T>> MatchRequest(Expression<Predicate<IRestRequest>> exp)
             => _restClient.Received().ExecuteTaskAsync<T>(Arg.Is(exp));
-
     }
 }

@@ -41,10 +41,10 @@ namespace IuguClientAPI
 
         private async Task<T> Put<T>(T client, string id, string url)
             => (await _httpClient.ExecuteTaskAsync<T>(CreateRequest(url, Method.PUT).AddUrlSegment("id", id).AddJsonBody(client))).Data;
-        
+
         private async Task<T> Put<T>(string id, string url)
             => (await _httpClient.ExecuteTaskAsync<T>(CreateRequest(url, Method.PUT).AddUrlSegment("id", id))).Data;
-        
+
         private async Task<T> Put<T>(T client, IDictionary<string, string> segments, string url)
         {
             var request = CreateRequestWithParametersAndData(client, segments, url, Method.PUT);
