@@ -68,6 +68,12 @@
     <Compile Include="CustomerFeature\CustomerCRUDSteps.cs" />
     <Compile Include="Configuration\IuguApiClientTest.cs" />
     <Compile Include="CrudStepsBase.cs" />
+    <Compile Include="InvoiceFeature\InvoiceCRUD.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InvoiceCRUD.feature</DependentUpon>
+    </Compile>
+    <Compile Include="InvoiceFeature\InvoiceCRUDSteps.cs" />
     <Compile Include="PaymentMethodFeature\PaymentMethodCRUD.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -83,6 +89,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\BaseTestSetup.cs" />
     <Compile Include="Serialization\CustomerSerializationTest.cs" />
+    <Compile Include="Serialization\InvoiceSerialization.cs" />
     <Compile Include="Serialization\IuguSubitemSerializationTest.cs" />
     <Compile Include="Serialization\PaymentMethodSerializationTest.cs" />
     <Compile Include="Serialization\PlanSerializationTest.cs" />
@@ -99,6 +106,10 @@
     <None Include="CustomerFeature\ClientCRUD.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ClientCRUD.feature.cs</LastGenOutput>
+    </None>
+    <None Include="InvoiceFeature\InvoiceCRUD.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>InvoiceCRUD.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="PaymentMethodFeature\PaymentMethodCRUD.feature">
