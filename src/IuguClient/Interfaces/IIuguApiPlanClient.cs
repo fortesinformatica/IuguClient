@@ -13,5 +13,7 @@ namespace IuguClientAPI.Interfaces
         IuguPlan DeletePlanSync(string planId);
         Task<IuguPlan> GetPlan(string planId);
         IuguPlan GetPlanSync(string planId);
+        Task<IuguPlan> GetPlanWithIdentifier(string identifier);
+        IuguPlan GetPlanWithIdentifierSync(string identifier);
     }
 }

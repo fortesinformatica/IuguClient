@@ -52,7 +52,6 @@ Scenario: Plan remove sync
 	And should send Api Token into the header
 	And should return a plan removed
 
-
 Scenario: Get Plan async
 	Given a id of the plan
 	When I request the plan to be got
@@ -66,5 +65,21 @@ Scenario: Get Plan sync
 	When I request the plan to be got sync
 	Then the request should be a GET
 	And the url should end with "/plans/{id}" with id value equals to 1
+	And should send Api Token into the header
+	And should return a plan got
+
+Scenario: Get Plan with identifier async
+	Given a identifier of the plan
+	When I request the plan to be got with identifier
+	Then the request should be a GET	
+	And the url should end with "/plans/identifier/{id}" with id value equals to 1
+	And should send Api Token into the header
+	And should return a plan got
+
+Scenario: Get Plan with identifier sync
+	Given a identifier of the plan
+	When I request the plan to be got with identifier sync
+	Then the request should be a GET
+	And the url should end with "/plans/identifier/{id}" with id value equals to 1
 	And should send Api Token into the header
 	And should return a plan got

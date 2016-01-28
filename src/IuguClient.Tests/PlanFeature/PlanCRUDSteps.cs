@@ -19,6 +19,7 @@ namespace IuguClientAPI.Tests.PlanFeature
         private IuguPlan _planDeleted;
         private IuguPlan _planGot;
         private IuguPlan _planAdded;
+        private string _planIdentifier;
 
         public PlanCRUDSteps()
         {
@@ -35,6 +36,10 @@ namespace IuguClientAPI.Tests.PlanFeature
 
         [Given(@"a id of the plan")]
         public void GivenAIdOfThePlan() => _id = PlanSerializationTest.IuguPlan.Id;
+
+        [Given(@"a identifier of the plan")]
+        public void GivenAIdentifierOfThePlan() => _planIdentifier = "1";
+
 
         [When(@"I request the plan to be added")]
         public void WhenIRequestThePlanToBeAdded() => _planAdded = CallMethodAndMockResponse(() => _sut.CreatePlan(_plan).Result, _planToAdd);
@@ -59,6 +64,12 @@ namespace IuguClientAPI.Tests.PlanFeature
 
         [When(@"I request the plan to be got sync")]
         public void WhenIRequestThePlanToBeGotSync() => _planGot = CallMethodAndMockResponse(() => _sut.GetPlanSync(_id), _plan);
+
+        [When(@"I request the plan to be got with identifier")]
+        public void WhenIRequestThePlanToBeGotWithIdentifier() => _planGot = CallMethodAndMockResponse(() => _sut.GetPlanWithIdentifier(_planIdentifier).Result, _plan);
+
+        [When(@"I request the plan to be got with identifier sync")]
+        public void WhenIRequestThePlanToBeGotWithIdentifierSync() => _planGot = CallMethodAndMockResponse(() => _sut.GetPlanWithIdentifierSync(_planIdentifier), _plan);
 
         [Then(@"should return a Plan created")]
         public void ThenShouldReturnAPlanCreated() => Assert.IsNotNull(_planAdded);

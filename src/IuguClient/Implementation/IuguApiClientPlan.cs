@@ -20,5 +20,9 @@ namespace IuguClientAPI
         public async Task<IuguPlan> GetPlan(string planId) => await Get<IuguPlan>(planId, "/plans/{id}");
 
         public IuguPlan GetPlanSync(string planId) => Get<IuguPlan>(planId, "/plans/{id}").Result;
+
+        public async Task<IuguPlan> GetPlanWithIdentifier(string planId) => await Get<IuguPlan>(planId, "/plans/identifier/{id}");
+
+        public IuguPlan GetPlanWithIdentifierSync(string planId) => Get<IuguPlan>(planId, "/plans/identifier/{id}").Result;
     }
 }
