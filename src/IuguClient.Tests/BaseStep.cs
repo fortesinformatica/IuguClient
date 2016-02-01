@@ -1,5 +1,6 @@
 using System;
 using System.Linq.Expressions;
+using System.Net;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NSubstitute;
@@ -31,7 +32,8 @@ namespace IuguClientAPI.Tests
         protected T CallMethodSyncAndMockResponse(Func<T> function, T dataToReturn)
         {
             CrudStepsBase.SyncRequest = true;
-            _restResponse.Content = JsonConvert.SerializeObject(dataToReturn);
+            _restResponse.Content.Returns(JsonConvert.SerializeObject(dataToReturn));
+            _restResponse.StatusCode.Returns(HttpStatusCode.OK);
             _restClient.Execute(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(_restResponse);
             return function();
         }

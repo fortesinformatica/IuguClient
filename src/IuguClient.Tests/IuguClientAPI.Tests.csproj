@@ -68,6 +68,7 @@
     <Compile Include="CustomerFeature\CustomerCRUDSteps.cs" />
     <Compile Include="Configuration\IuguApiClientTest.cs" />
     <Compile Include="CrudStepsBase.cs" />
+    <Compile Include="ErrorHandling\ErrorHandlingTests.cs" />
     <Compile Include="InvoiceFeature\InvoiceCRUD.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

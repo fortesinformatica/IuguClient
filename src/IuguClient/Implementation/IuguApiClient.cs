@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using IuguClientAPI.Exceptions;
 using IuguClientAPI.Interfaces;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 using RestSharp.Authenticators;
 
@@ -77,8 +81,7 @@ namespace IuguClientAPI
         private T PostSync<T>(T client, string url)
         {
             var request = CreateRequest(url, Method.POST).AddJsonBody(client);
-            var restResponse = _httpClient.Execute(request);
-            return NewtonsoftJsonSerializer.Instance.Deserialize<T>(restResponse);
+            return ExecuteRequest<T>(request);
         }
 
         private T PostSync<T>(string id, string url)
@@ -123,6 +126,19 @@ namespace IuguClientAPI
             return NewtonsoftJsonSerializer.Instance.Deserialize<T>(restResponse);
         }
 
+        private T ExecuteRequest<T>(IRestRequest request)
+        {
+            var response = _httpClient.Execute(request);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+                return NewtonsoftJsonSerializer.Instance.Deserialize<T>(response);
+
+            if (response.StatusCode == HttpStatusCode.Unauthorized)
+                throw new IuguUnauthorizedException();
+
+            var errors = JToken.Parse(response.Content)["errors"].Value<JObject>();
+            throw new IuguErrorException(errors.Properties().ToDictionary(p => p.Name, p => errors[p.Name].ToObject<string[]>()));
+        }
 
         private IRestRequest CreateRequestWithParametersAndData<T>(T data, IDictionary<string, string> segments,
             string url, Method method)

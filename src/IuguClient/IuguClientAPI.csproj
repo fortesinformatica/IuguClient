@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\IuguErrorException.cs" />
+    <Compile Include="Exceptions\IuguUnauthorizedException.cs" />
     <Compile Include="NewtonsoftJsonSerializer.cs" />
     <Compile Include="Implementation\IuguApiClientCustomer.cs" />
     <Compile Include="Implementation\IuguApiClientInvoice.cs" />
