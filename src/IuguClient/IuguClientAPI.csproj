@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewtonsoftJsonSerializer.cs" />
     <Compile Include="Implementation\IuguApiClientCustomer.cs" />
     <Compile Include="Implementation\IuguApiClientInvoice.cs" />
     <Compile Include="Implementation\IuguApiClientPaymentMethod.cs" />

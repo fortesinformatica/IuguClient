@@ -65,6 +65,6 @@ namespace IuguClientAPI.Tests
 
         [Then(@"should send Api Token into the header")]
         public void ThenShouldSendApiTokenIntoTheHeader()
-            => AssertRequestMatches(h => h.Parameters.Any(x => x.Type == ParameterType.HttpHeader && x.Name == "api_token"));
+            => AssertRequestMatches(h => h.Parameters.Any(x => x.Type == ParameterType.HttpHeader && x.Name == "Authorization"));
     }
 }
