@@ -53,7 +53,9 @@ namespace IuguClientAPI.Tests.ErrorHandling
 
             var exception = Assert.Throws<IuguErrorException>(() => _sut.CreatePlanSync(new IuguPlan("Core", "core_basico", 1, IuguIntervalType.Months, IuguCurrencyType.BRL, 7500)));
             CollectionAssert.AreEquivalent(expected, exception.Erros);
-            Assert.AreEqual("Alguns campos estão incorretos, olhe a propriedade Erros para mais detalhes.", exception.Message);
+            const string EXPECTED_MSG = @"Alguns campos estão incorretos
+O campo email possui os seguintes erros: não pode ficar em branco, não é válido";
+            Assert.AreEqual(EXPECTED_MSG, exception.Message);
         }
     }
 }
