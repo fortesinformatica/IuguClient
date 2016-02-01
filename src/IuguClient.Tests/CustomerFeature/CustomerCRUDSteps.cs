@@ -32,19 +32,19 @@ namespace IuguClientAPI.Tests
         public void WhenIRequestTheClientToBeRemoved() => _deletedCustomer = CallMethodAndMockResponse(() => _sut.DeleteClient(_clientId).Result, _deletedCustomer);
 
         [When(@"I request the customer to be removed sync")]
-        public void WhenIRequestTheClientToBeRemovedSync() => _deletedCustomer = CallMethodAndMockResponse(() => _sut.DeleteClientSync(_clientId), _deletedCustomer);
+        public void WhenIRequestTheClientToBeRemovedSync() => _deletedCustomer = CallMethodSyncAndMockResponse(() => _sut.DeleteClientSync(_clientId), _deletedCustomer);
 
         [When(@"I request the customer to be added")]
         public void WhenIRequestTheClientToBeAdded() => _createdCustomer = CallMethodAndMockResponse(() => _sut.CreateClient(_customer).Result, _createdCustomer);
 
         [When(@"I request the customer to be added sync")]
-        public void WhenIRequestTheClientToBeAddedSync() => _createdCustomer = CallMethodAndMockResponse(() => _sut.CreateClientSync(_customer), _createdCustomer);
+        public void WhenIRequestTheClientToBeAddedSync() => _createdCustomer = CallMethodSyncAndMockResponse(() => _sut.CreateClientSync(_customer), _createdCustomer);
 
         [When(@"I request the customer to be edited")]
         public void WhenIRequestTheClientToBeEdited() => _editedCustomer = CallMethodAndMockResponse(() => _sut.UpdateClient(CustomerSerializationTest.IuguCustomer).Result, _editedCustomer);
 
         [When(@"I request the customer to be edited sync")]
-        public void WhenIRequestTheClientToBeEditedSync() => _editedCustomer = CallMethodAndMockResponse(() => _sut.UpdateClientSync(CustomerSerializationTest.IuguCustomer), _editedCustomer);
+        public void WhenIRequestTheClientToBeEditedSync() => _editedCustomer = CallMethodSyncAndMockResponse(() => _sut.UpdateClientSync(CustomerSerializationTest.IuguCustomer), _editedCustomer);
 
         [Then(@"should return a Customer created")]
         public void ThenShouldReturnAClientCreated() => Assert.IsNotNull(_createdCustomer);

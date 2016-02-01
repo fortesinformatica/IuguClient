@@ -38,7 +38,7 @@ namespace IuguClientAPI.Tests
 
         [When(@"I request the PaymentMethod to be added sync")]
         public void WhenIRequestThePaymentMethodToBeAddedSync()
-            => _iuguPaymentMethod = CallMethodAndMockResponse(() => _sut.CreatePaymentMethodSync(_paymentMethod), _createdPaymentMethod);
+            => _iuguPaymentMethod = CallMethodSyncAndMockResponse(() => _sut.CreatePaymentMethodSync(_paymentMethod), _createdPaymentMethod);
 
         [When(@"I request the PaymentMethod to be edited")]
         public void WhenIRequestThePaymentMethodToBeEdited()
@@ -46,7 +46,7 @@ namespace IuguClientAPI.Tests
 
         [When(@"I request the PaymentMethod to be edited sync")]
         public void WhenIRequestThePaymentMethodToBeEditedSync()
-            => _editedPaymentMethod = CallMethodAndMockResponse(() => _sut.UpdatePaymentMethodSync(_editedPaymentMethod, "22"), _editedPaymentMethod);
+            => _editedPaymentMethod = CallMethodSyncAndMockResponse(() => _sut.UpdatePaymentMethodSync(_editedPaymentMethod, "22"), _editedPaymentMethod);
 
         [When(@"I request the paymentMehtod to be removed")]
         public void WhenIRequestThePaymentMehtodToBeRemoved()
@@ -54,7 +54,7 @@ namespace IuguClientAPI.Tests
 
         [When(@"I request the paymentMehtod to be removed sync")]
         public void WhenIRequestThePaymentMehtodToBeRemovedSync()
-            => _removedPaymentMethod = CallMethodAndMockResponse(() => _sut.DeletePaymentMethodSync(paymentMethodId), _removedPaymentMethod);
+            => _removedPaymentMethod = CallMethodSyncAndMockResponse(() => _sut.DeletePaymentMethodSync(paymentMethodId), _removedPaymentMethod);
 
         [Then(@"should return a PaymentMethod created")]
         public void ThenShouldReturnAPaymentMethodCreated() => Assert.IsNotNull(_iuguPaymentMethod);

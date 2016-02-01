@@ -45,31 +45,31 @@ namespace IuguClientAPI.Tests.PlanFeature
         public void WhenIRequestThePlanToBeAdded() => _planAdded = CallMethodAndMockResponse(() => _sut.CreatePlan(_plan).Result, _planToAdd);
 
         [When(@"I request the plan to be added sync")]
-        public void WhenIRequestThePlanToBeAddedSync() => _planAdded = CallMethodAndMockResponse(() => _sut.CreatePlanSync(_plan), _planToAdd);
+        public void WhenIRequestThePlanToBeAddedSync() => _planAdded = CallMethodSyncAndMockResponse(() => _sut.CreatePlanSync(_plan), _planToAdd);
 
         [When(@"I request the plan to be edited")]
         public void WhenIRequestThePlanToBeEdited() => _planUpdated = CallMethodAndMockResponse(() => _sut.UpdatePlan(_planToUpdate).Result, _planToUpdate);
 
         [When(@"I request the plan to be edited sync")]
-        public void WhenIRequestThePlanToBeEditedSync() => _planUpdated = CallMethodAndMockResponse(() => _sut.UpdatePlanSync(_planToUpdate), _planToUpdate);
+        public void WhenIRequestThePlanToBeEditedSync() => _planUpdated = CallMethodSyncAndMockResponse(() => _sut.UpdatePlanSync(_planToUpdate), _planToUpdate);
 
         [When(@"I request the plan to be removed")]
         public void WhenIRequestThePlanToBeRemoved() => _planDeleted = CallMethodAndMockResponse(() => _sut.DeletePlan(_id).Result, _planToDelete);
 
         [When(@"I request the plan to be removed sync")]
-        public void WhenIRequestThePlanToBeRemovedSync() => _planDeleted = CallMethodAndMockResponse(() => _sut.DeletePlanSync(_id), _planToDelete);
+        public void WhenIRequestThePlanToBeRemovedSync() => _planDeleted = CallMethodSyncAndMockResponse(() => _sut.DeletePlanSync(_id), _planToDelete);
 
         [When(@"I request the plan to be got")]
         public void WhenIRequestThePlanToBeGot() => _planGot = CallMethodAndMockResponse(() => _sut.GetPlan(_id).Result, _plan);
 
         [When(@"I request the plan to be got sync")]
-        public void WhenIRequestThePlanToBeGotSync() => _planGot = CallMethodAndMockResponse(() => _sut.GetPlanSync(_id), _plan);
+        public void WhenIRequestThePlanToBeGotSync() => _planGot = CallMethodSyncAndMockResponse(() => _sut.GetPlanSync(_id), _plan);
 
         [When(@"I request the plan to be got with identifier")]
         public void WhenIRequestThePlanToBeGotWithIdentifier() => _planGot = CallMethodAndMockResponse(() => _sut.GetPlanWithIdentifier(_planIdentifier).Result, _plan);
 
         [When(@"I request the plan to be got with identifier sync")]
-        public void WhenIRequestThePlanToBeGotWithIdentifierSync() => _planGot = CallMethodAndMockResponse(() => _sut.GetPlanWithIdentifierSync(_planIdentifier), _plan);
+        public void WhenIRequestThePlanToBeGotWithIdentifierSync() => _planGot = CallMethodSyncAndMockResponse(() => _sut.GetPlanWithIdentifierSync(_planIdentifier), _plan);
 
         [Then(@"should return a Plan created")]
         public void ThenShouldReturnAPlanCreated() => Assert.IsNotNull(_planAdded);

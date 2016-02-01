@@ -17,14 +17,30 @@ namespace IuguClientAPI.Tests
             set { Current.Add(nameof(RestClient), value); }
         }
 
+        public static bool SyncRequest
+        {
+            get { return Current.Get<bool>(nameof(SyncRequest)); }
+            set { Current.Add(nameof(SyncRequest), value); }
+        }
+
         public static Func<Expression<Predicate<IRestRequest>>, Task> Asserter
         {
             get { return Current.Get<Func<Expression<Predicate<IRestRequest>>, Task>>($"{Current.ScenarioInfo.Title}Asserter"); }
             set { Current.Add($"{Current.ScenarioInfo.Title}Asserter", value); }
         }
 
+        public static Func<Expression<Predicate<IRestRequest>>, IRestResponse> AsserterSync
+        {
+            get { return Current.Get<Func<Expression<Predicate<IRestRequest>>, IRestResponse>>($"{Current.ScenarioInfo.Title}AsserterSync"); }
+            set { Current.Add($"{Current.ScenarioInfo.Title}AsserterSync", value); }
+        }
+
         protected static Task AssertRequestMatches(Expression<Predicate<IRestRequest>> expression)
-            => Asserter(expression);
+        {
+            if (SyncRequest)
+                return Task.FromResult(AsserterSync(expression));
+            return Asserter(expression);
+        }
 
         [Then(@"the request should be a POST")]
         public Task ThenTheRequestShouldBeAPOST()

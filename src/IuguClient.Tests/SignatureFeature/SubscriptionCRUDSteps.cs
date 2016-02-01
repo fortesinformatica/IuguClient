@@ -44,38 +44,38 @@ namespace IuguClientAPI.Tests
         public void WhenIRequestTheSubscriptionToBeAdded() => _subscriptionAdded = CallMethodAndMockResponse(() => _sut.CreateSubscription(_subscription).Result, _subscription);
 
         [When(@"I request the subscription to be added sync")]
-        public void WhenIRequestTheSubscriptionToBeAddedSync() => _subscriptionAdded = CallMethodAndMockResponse(() => _sut.CreateSubscriptionSync(_subscription),
+        public void WhenIRequestTheSubscriptionToBeAddedSync() => _subscriptionAdded = CallMethodSyncAndMockResponse(() => _sut.CreateSubscriptionSync(_subscription),
             _subscription);
 
         [When(@"I request the subscription to be edited")]
         public void WhenIRequestTheSubscriptionToBeEdited() => _subscriptionUpdated = CallMethodAndMockResponse(() => _sut.UpdateSubscription(_subscriptionToUpdate).Result, _subscriptionToUpdate);
 
         [When(@"I request the subscription to be edited sync")]
-        public void WhenIRequestTheSubscriptionToBeEditedSync() => _subscriptionUpdated = CallMethodAndMockResponse(() => _sut.UpdateSubscriptionSync(_subscriptionToUpdate), _subscriptionToUpdate);
+        public void WhenIRequestTheSubscriptionToBeEditedSync() => _subscriptionUpdated = CallMethodSyncAndMockResponse(() => _sut.UpdateSubscriptionSync(_subscriptionToUpdate), _subscriptionToUpdate);
 
         [When(@"I request the subscription to be removed")]
         public void WhenIRequestTheSubscriptionToBeRemoved() => _subscriptionDeleted = CallMethodAndMockResponse(() => _sut.DeleteSubscription(_subscriptionId).Result, _subscriptionToDelete);
 
         [When(@"I request the subscription to be removed sync")]
-        public void WhenIRequestTheSubscriptionToBeRemovedSync() => _subscriptionDeleted = CallMethodAndMockResponse(() => _sut.DeleteSubscriptionSync(_subscriptionId), _subscriptionToDelete);
+        public void WhenIRequestTheSubscriptionToBeRemovedSync() => _subscriptionDeleted = CallMethodSyncAndMockResponse(() => _sut.DeleteSubscriptionSync(_subscriptionId), _subscriptionToDelete);
 
         [When(@"I request the subscription to be got")]
         public void WhenIRequestTheSubscriptionToBeGot() => _subscriptionUpdated = CallMethodAndMockResponse(() => _sut.GetSubscription(_subscriptionId).Result, _subscriptionToUpdate);
 
         [When(@"I request the subscription to be got sync")]
-        public void WhenIRequestTheSubscriptionToBeGotSync() => _subscriptionUpdated = CallMethodAndMockResponse(() => _sut.GetSubscriptionSync(_subscriptionId), _subscriptionToUpdate);
+        public void WhenIRequestTheSubscriptionToBeGotSync() => _subscriptionUpdated = CallMethodSyncAndMockResponse(() => _sut.GetSubscriptionSync(_subscriptionId), _subscriptionToUpdate);
 
         [When(@"I request the subscription to be suspended")]
         public void WhenIRequestTheSubscriptionToBeSuspended() => _subscriptionUpdated = CallMethodAndMockResponse(() => _sut.SuspendSubscription(_subscriptionId).Result, _subscriptionToUpdate);
 
         [When(@"I request the subscription to be suspended sync")]
-        public void WhenIRequestTheSubscriptionToBeSuspendedSync() => _subscriptionUpdated = CallMethodAndMockResponse(() => _sut.SuspendSubscriptionSync(_subscriptionId), _subscriptionToUpdate);
+        public void WhenIRequestTheSubscriptionToBeSuspendedSync() => _subscriptionUpdated = CallMethodSyncAndMockResponse(() => _sut.SuspendSubscriptionSync(_subscriptionId), _subscriptionToUpdate);
 
         [When(@"I request the subscription to be activated")]
         public void WhenIRequestTheSubscriptionToBeActivated() => _subscriptionUpdated = CallMethodAndMockResponse(() => _sut.ActivateSubscription(_subscriptionId).Result, _subscriptionToUpdate);
 
         [When(@"I request the subscription to be activated sync")]
-        public void WhenIRequestTheSubscriptionToBeActivatedSync() => _subscriptionUpdated = CallMethodAndMockResponse(() => _sut.ActivateSubscriptionSync(_subscriptionId), _subscriptionToUpdate);
+        public void WhenIRequestTheSubscriptionToBeActivatedSync() => _subscriptionUpdated = CallMethodSyncAndMockResponse(() => _sut.ActivateSubscriptionSync(_subscriptionId), _subscriptionToUpdate);
 
         [Then(@"should return a subscription got")]
         public void ThenShouldReturnASubscriptionGot() => Assert.IsNotNull(_subscriptionUpdated);

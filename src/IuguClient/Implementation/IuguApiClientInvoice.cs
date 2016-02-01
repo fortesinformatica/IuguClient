@@ -21,7 +21,7 @@ namespace IuguClientAPI
         /// </summary>
         /// <param name="invoiceToCreate">Fatura para ser criada</param>
         /// <returns>Fatura criada</returns>
-        public IuguInvoice CreateInvoiceSync(IuguInvoice invoiceToCreate) => Post(invoiceToCreate, INVOICEURLSUFFIX).Result;
+        public IuguInvoice CreateInvoiceSync(IuguInvoice invoiceToCreate) => PostSync(invoiceToCreate, INVOICEURLSUFFIX);
 
         /// <summary>
         /// Retorna os dados de uma Fatura
@@ -35,7 +35,7 @@ namespace IuguClientAPI
         /// </summary>
         /// <param name="invoiceId">Id da Fatura</param>
         /// <returns>Fatura</returns>
-        public IuguInvoice GetInvoiceByIdSync(string invoiceId) => Get<IuguInvoice>(invoiceId, INVOICEURLSUFFIXWITHID).Result;
+        public IuguInvoice GetInvoiceByIdSync(string invoiceId) => GetSync<IuguInvoice>(invoiceId, INVOICEURLSUFFIXWITHID);
 
         /// <summary>
         /// Altera os dados de uma Fatura, quaisquer parâmetros não informados não serão alterados. 
@@ -51,7 +51,7 @@ namespace IuguClientAPI
         /// </summary>
         /// <param name="invoiceToUpdate">Fatura para ser atualizada</param>
         /// <returns>Fatura atualizada</returns>
-        public IuguInvoice UpdateInvoiceSync(IuguInvoice invoiceToUpdate) => Put(invoiceToUpdate, invoiceToUpdate.Id, INVOICEURLSUFFIXWITHID).Result;
+        public IuguInvoice UpdateInvoiceSync(IuguInvoice invoiceToUpdate) => PutSync(invoiceToUpdate, invoiceToUpdate.Id, INVOICEURLSUFFIXWITHID);
 
         /// <summary>
         /// Remove uma Fatura permanentemente.
@@ -65,7 +65,7 @@ namespace IuguClientAPI
         /// </summary>
         /// <param name="invoiceId">Id da Fatura</param>
         /// <returns>Fatura removida</returns>
-        public IuguInvoice DeleteInvoiceSync(string invoiceId) => Delete<IuguInvoice>(invoiceId, INVOICEURLSUFFIXWITHID).Result;
+        public IuguInvoice DeleteInvoiceSync(string invoiceId) => DeleteSync<IuguInvoice>(invoiceId, INVOICEURLSUFFIXWITHID);
 
         /// <summary>
         /// Gera segunda via de uma Fatura. Somente faturas pendentes podem ter segunda via gerada. A fatura atual é cancelada e uma nova é gerada com status ‘pending’.
@@ -79,7 +79,7 @@ namespace IuguClientAPI
         /// </summary>
         /// <param name="invoiceToDuplicate">Fatura para gerar segunda via</param>
         /// <returns>Segunda via da fatura</returns>
-        public IuguInvoice DuplicateInvoiceSync(IuguInvoice invoiceToDuplicate) => Post(invoiceToDuplicate, new Dictionary<string, string> { { "id", invoiceToDuplicate.Id } }, $"{INVOICEURLSUFFIXWITHID}/duplicate").Result;
+        public IuguInvoice DuplicateInvoiceSync(IuguInvoice invoiceToDuplicate) => PostSync(invoiceToDuplicate, new Dictionary<string, string> { { "id", invoiceToDuplicate.Id } }, $"{INVOICEURLSUFFIXWITHID}/duplicate");
 
         /// <summary>
         /// Cancela uma Fatura.
@@ -93,7 +93,7 @@ namespace IuguClientAPI
         /// </summary>
         /// <param name="invoiceId">Id da Fatura</param>
         /// <returns>Fatura cancelada</returns>
-        public IuguInvoice CancelInvoiceSync(string invoiceId) => Put<IuguInvoice>(invoiceId, $"{INVOICEURLSUFFIXWITHID}/cancel").Result;
+        public IuguInvoice CancelInvoiceSync(string invoiceId) => PutSync<IuguInvoice>(invoiceId, $"{INVOICEURLSUFFIXWITHID}/cancel");
 
         /// <summary>
         /// Efetua o reembolso de uma Fatura. Somente alguns meios de pagamento permitem o reembolso, como por exemplo o Cartão de Crédito. Após o reembolso, a Fatura fica com o status de refunded.
@@ -107,6 +107,6 @@ namespace IuguClientAPI
         /// </summary>
         /// <param name="invoiceId">Id da fatura</param>
         /// <returns>Fatura reembolsada</returns>
-        public IuguInvoice RefundInvoiceSync(string invoiceId) => Post<IuguInvoice>(invoiceId, $"{INVOICEURLSUFFIXWITHID}/refund").Result;
+        public IuguInvoice RefundInvoiceSync(string invoiceId) => PostSync<IuguInvoice>(invoiceId, $"{INVOICEURLSUFFIXWITHID}/refund");
     }
 }

@@ -11,17 +11,16 @@ namespace IuguClientAPI
     public partial class IuguApiClient : IIuguApiClient
     {
         readonly IRestClient _httpClient;
-        readonly string _apiToken;
-        private HttpBasicAuthenticator _httpBasicAuthenticator;
+        private readonly HttpBasicAuthenticator _httpBasicAuthenticator;
         const string IUGU_API_TOKEN = "IuguApiToken";
 
         public IuguApiClient(IRestClient httpClient = default(IRestClient), string baseUrl = "https://api.iugu.com/v1")
         {
-            _apiToken = ConfigurationManager.AppSettings.Get(IUGU_API_TOKEN);
-            if (string.IsNullOrWhiteSpace(_apiToken))
+            var apiToken = ConfigurationManager.AppSettings.Get(IUGU_API_TOKEN);
+            if (string.IsNullOrWhiteSpace(apiToken))
                 throw new ConfigurationErrorsException("IuguApiToken não está configurado no App.config ou Web.config");
 
-            _httpBasicAuthenticator = new HttpBasicAuthenticator(_apiToken, "");
+            _httpBasicAuthenticator = new HttpBasicAuthenticator(apiToken, "");
             _httpClient = httpClient ?? new RestClient(new Uri(baseUrl));
             _httpClient.AddHandler("application/json", NewtonsoftJsonSerializer.Instance);
         }
@@ -67,6 +66,63 @@ namespace IuguClientAPI
 
         private async Task<T> Delete<T>(string id, string url)
             => (await _httpClient.ExecuteTaskAsync<T>(CreateRequest(url, Method.DELETE).AddUrlSegment("id", id))).Data;
+
+        private T GetSync<T>(string id, string url)
+        {
+            var request = CreateRequest(url, Method.GET).AddUrlSegment("id", id);
+            var response = _httpClient.Execute(request);
+            return NewtonsoftJsonSerializer.Instance.Deserialize<T>(response);
+        }
+
+        private T PostSync<T>(T client, string url)
+        {
+            var request = CreateRequest(url, Method.POST).AddJsonBody(client);
+            var restResponse = _httpClient.Execute(request);
+            return NewtonsoftJsonSerializer.Instance.Deserialize<T>(restResponse);
+        }
+
+        private T PostSync<T>(string id, string url)
+        {
+            var request = CreateRequest(url, Method.POST).AddUrlSegment("id", id);
+            var restResponse = _httpClient.Execute(request);
+            return NewtonsoftJsonSerializer.Instance.Deserialize<T>(restResponse);
+        }
+
+        private T PostSync<T>(T client, IDictionary<string, string> segments, string url)
+        {
+            var request = CreateRequestWithParametersAndData(client, segments, url, Method.POST);
+            var restResponse = _httpClient.Execute(request);
+            return NewtonsoftJsonSerializer.Instance.Deserialize<T>(restResponse);
+        }
+
+        private T PutSync<T>(T client, string id, string url)
+        {
+            var request = CreateRequest(url, Method.PUT).AddUrlSegment("id", id).AddJsonBody(client);
+            var restResponse = _httpClient.Execute(request);
+            return NewtonsoftJsonSerializer.Instance.Deserialize<T>(restResponse);
+        }
+
+        private T PutSync<T>(string id, string url)
+        {
+            var request = CreateRequest(url, Method.PUT).AddUrlSegment("id", id);
+            var restResponse = _httpClient.Execute(request);
+            return NewtonsoftJsonSerializer.Instance.Deserialize<T>(restResponse);
+        }
+
+        private T PutSync<T>(T client, IDictionary<string, string> segments, string url)
+        {
+            var request = CreateRequestWithParametersAndData(client, segments, url, Method.PUT);
+            var restResponse = _httpClient.Execute(request);
+            return NewtonsoftJsonSerializer.Instance.Deserialize<T>(restResponse);
+        }
+
+        private T DeleteSync<T>(string id, string url)
+        {
+            var request = CreateRequest(url, Method.DELETE).AddUrlSegment("id", id);
+            var restResponse = _httpClient.Execute(request);
+            return NewtonsoftJsonSerializer.Instance.Deserialize<T>(restResponse);
+        }
+
 
         private IRestRequest CreateRequestWithParametersAndData<T>(T data, IDictionary<string, string> segments,
             string url, Method method)

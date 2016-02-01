@@ -38,28 +38,28 @@ namespace IuguClientAPI.Tests.InvoiceFeature
         public void WhenIRequestTheInvoiceToBeAdded() => _createdInvoice = CallMethodAndMockResponse(() => _sut.CreateInvoice(_invoiceToCreate).Result, _createdInvoice);
 
         [When(@"I request the Invoice to be added sync")]
-        public void WhenIRequestTheInvoiceToBeAddedSync() => _createdInvoice = CallMethodAndMockResponse(() => _sut.CreateInvoiceSync(_invoiceToCreate), _createdInvoice);
+        public void WhenIRequestTheInvoiceToBeAddedSync() => _createdInvoice = CallMethodSyncAndMockResponse(() => _sut.CreateInvoiceSync(_invoiceToCreate), _createdInvoice);
 
         [When(@"I request the Invoice to be edited")]
         public void WhenIRequestTheInvoiceToBeEdited() => _editedInvoice = CallMethodAndMockResponse(() => _sut.UpdateInvoice(_editedInvoice).Result, _editedInvoice);
 
         [When(@"I request the Invoice to be edited sync")]
-        public void WhenIRequestTheInvoiceToBeEditedSync() => _editedInvoice = CallMethodAndMockResponse(() => _sut.UpdateInvoiceSync(_editedInvoice), _editedInvoice);
+        public void WhenIRequestTheInvoiceToBeEditedSync() => _editedInvoice = CallMethodSyncAndMockResponse(() => _sut.UpdateInvoiceSync(_editedInvoice), _editedInvoice);
 
         [When(@"I request the invoice to be removed")]
         public void WhenIRequestTheInvoiceToBeRemoved() => _removedInvoice = CallMethodAndMockResponse(() => _sut.DeleteInvoice(_createdInvoice.Id).Result, _removedInvoice);
 
         [When(@"I request the invoice to be removed sync")]
-        public void WhenIRequestTheInvoiceToBeRemovedSync() => _removedInvoice = CallMethodAndMockResponse(() => _sut.DeleteInvoiceSync(_createdInvoice.Id), _removedInvoice);
+        public void WhenIRequestTheInvoiceToBeRemovedSync() => _removedInvoice = CallMethodSyncAndMockResponse(() => _sut.DeleteInvoiceSync(_createdInvoice.Id), _removedInvoice);
 
         [When(@"I request the invoice to be duplicated")]
         public void WhenIRequestTheInvoiceToBeDuplicated() => _duplicatedInvoice = CallMethodAndMockResponse(() => _sut.DuplicateInvoice(_createdInvoice).Result, _duplicatedInvoice);
 
         [When(@"I request the invoice to be duplicated sync")]
-        public void WhenIRequestTheInvoiceToBeDuplicatedSync() => _duplicatedInvoice = CallMethodAndMockResponse(() => _sut.DuplicateInvoiceSync(_createdInvoice), _duplicatedInvoice);
+        public void WhenIRequestTheInvoiceToBeDuplicatedSync() => _duplicatedInvoice = CallMethodSyncAndMockResponse(() => _sut.DuplicateInvoiceSync(_createdInvoice), _duplicatedInvoice);
 
         [When(@"I request the invoice to be canceled sync")]
-        public void WhenIRequestTheInvoiceToBeCanceledSync() => _canceledInvoice = CallMethodAndMockResponse(() => _sut.CancelInvoiceSync(_createdInvoice.Id), _canceledInvoice);
+        public void WhenIRequestTheInvoiceToBeCanceledSync() => _canceledInvoice = CallMethodSyncAndMockResponse(() => _sut.CancelInvoiceSync(_createdInvoice.Id), _canceledInvoice);
 
         [When(@"I request the invoice to be canceled")]
         public void WhenIRequestTheInvoiceToBeCanceled() => _canceledInvoice = CallMethodAndMockResponse(() => _sut.CancelInvoice(_createdInvoice.Id).Result, _canceledInvoice);
@@ -68,13 +68,13 @@ namespace IuguClientAPI.Tests.InvoiceFeature
         public void WhenIRequestTheInvoiceToBeRefunded() => _refundedInvoice = CallMethodAndMockResponse(() => _sut.RefundInvoice(_createdInvoice.Id).Result, _refundedInvoice);
 
         [When(@"I request the invoice to be refunded sync")]
-        public void WhenIRequestTheInvoiceToBeRefundedSync() => _refundedInvoice = CallMethodAndMockResponse(() => _sut.RefundInvoiceSync(_createdInvoice.Id), _refundedInvoice);
+        public void WhenIRequestTheInvoiceToBeRefundedSync() => _refundedInvoice = CallMethodSyncAndMockResponse(() => _sut.RefundInvoiceSync(_createdInvoice.Id), _refundedInvoice);
 
         [When(@"I request the invoice to be retrieved")]
         public void WhenIRequestTheInvoiceToBeRetrieved() => _retrievedInvoice = CallMethodAndMockResponse(() => _sut.GetInvoiceById(_createdInvoice.Id).Result, _retrievedInvoice);
 
         [When(@"I request the invoice to be retrieved sync")]
-        public void WhenIRequestTheInvoiceToBeRetrievedSync() => _retrievedInvoice = CallMethodAndMockResponse(() => _sut.GetInvoiceByIdSync(_createdInvoice.Id), _retrievedInvoice);
+        public void WhenIRequestTheInvoiceToBeRetrievedSync() => _retrievedInvoice = CallMethodSyncAndMockResponse(() => _sut.GetInvoiceByIdSync(_createdInvoice.Id), _retrievedInvoice);
 
         [Then(@"should return a invoice duplicated")]
         public void ThenShouldReturnAInvoiceDuplicated() => Assert.IsNotNull(_duplicatedInvoice);

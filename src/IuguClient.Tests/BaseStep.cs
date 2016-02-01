@@ -1,6 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using NSubstitute;
 using RestSharp;
 
@@ -16,16 +17,29 @@ namespace IuguClientAPI.Tests
             _restClient = CrudStepsBase.RestClient = Substitute.For<IRestClient>();
             _restResponse = Substitute.For<IRestResponse<T>>();
             CrudStepsBase.Asserter = MatchRequest;
+            CrudStepsBase.AsserterSync = MatchSyncRequest;
         }
 
         protected T CallMethodAndMockResponse(Func<T> function, T dataToReturn)
         {
+            CrudStepsBase.SyncRequest = false;
             _restResponse.Data.Returns(dataToReturn);
             _restClient.ExecuteTaskAsync<T>(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(_restResponse);
             return function();
         }
 
+        protected T CallMethodSyncAndMockResponse(Func<T> function, T dataToReturn)
+        {
+            CrudStepsBase.SyncRequest = true;
+            _restResponse.Content = JsonConvert.SerializeObject(dataToReturn);
+            _restClient.Execute(Arg.Any<IRestRequest>()).ReturnsForAnyArgs(_restResponse);
+            return function();
+        }
+
         private Task<IRestResponse<T>> MatchRequest(Expression<Predicate<IRestRequest>> exp)
             => _restClient.Received().ExecuteTaskAsync<T>(Arg.Is(exp));
+
+        private IRestResponse MatchSyncRequest(Expression<Predicate<IRestRequest>> exp)
+            => _restClient.Received().Execute(Arg.Is(exp));
     }
 }
