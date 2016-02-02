@@ -92,6 +92,7 @@
     <Compile Include="Serialization\CustomerSerializationTest.cs" />
     <Compile Include="Serialization\InvoiceSerialization.cs" />
     <Compile Include="Serialization\IuguSubitemSerializationTest.cs" />
+    <Compile Include="Serialization\NewtonsoftJsonSerializerTest.cs" />
     <Compile Include="Serialization\PaymentMethodSerializationTest.cs" />
     <Compile Include="Serialization\PlanSerializationTest.cs" />
     <Compile Include="Serialization\SubscriptionSerializationTest.cs" />
